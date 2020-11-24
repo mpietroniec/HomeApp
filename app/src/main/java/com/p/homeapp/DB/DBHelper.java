@@ -1,5 +1,6 @@
 package com.p.homeapp.DB;
 
+=======
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,8 +13,7 @@ import com.p.homeapp.entities.User;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-     private static final String DEBUG_TAG = "SqLiteTodoManager";
-
+    private static final String DEBUG_TAG = "SqLiteTodoManager";
     public static final String DB_NAME = "HomeApp.db";
     public static final String USER_TABLE = "USER_TABLE";
     public static final String COLUMN_ID = "ID";

@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+
 import android.widget.Toast;
+
 
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.MainActivity;
@@ -23,7 +26,9 @@ public class RegisterActivity extends AppCompatActivity {
     EditText eTxtLogin, eTxtEmail, eTxtPassword;
     Button btnRegister;
     TextView txtLogin;
+
     DBHelper dbHelper;
+
 
 
     @Override
@@ -36,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         eTxtPassword = findViewById(R.id.etxt_password);
         btnRegister = findViewById(R.id.btn_register);
         txtLogin = findViewById(R.id.txt_signIn);
+
 
         dbHelper = new DBHelper(RegisterActivity.this);
 

@@ -5,25 +5,47 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+
+import android.util.Log;
+import com.p.homeapp.loginAndRegister.LoginActivity;
+
+import java.util.Objects;
 
 import com.p.homeapp.entities.User;
 import com.p.homeapp.loginAndRegister.LoginActivity;
 
 
+
 public class MainActivity extends AppCompatActivity {
 
-    TextView txtHome;
+
+    private static final int TIME_OUT = 2000;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtHome = findViewById(R.id.txtHome);
-        txtHome.setOnClickListener((v) ->{
-            Intent LoginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(LoginIntent);
-        });
+        ActivityStarter starter = new ActivityStarter();
+        starter.start();
+
+    }
+
+    private class ActivityStarter extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(TIME_OUT);
+            } catch (Exception e) {
+                Log.e("Splash Screen", Objects.requireNonNull(e.getMessage()));
+            }
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            MainActivity.this.startActivity(intent);
+            MainActivity.this.finish();
+        }
     }
 }

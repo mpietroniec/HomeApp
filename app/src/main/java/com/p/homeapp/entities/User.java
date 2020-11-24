@@ -1,6 +1,8 @@
 package com.p.homeapp.entities;
 
+
 import java.time.LocalDateTime;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,10 +19,12 @@ public class User {
     private String login;
     private String email;
     private String password;
+
     private LocalDateTime createDate;
     private String role;
 
     public User(long id, String login, String email, String password, LocalDateTime createDate) {
+
         this.id = id;
         this.login = login;
         this.email = email;

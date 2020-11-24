@@ -5,16 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import com.p.homeapp.loginAndRegister.LoginActivity;
 
 import java.util.Objects;
+
+import com.p.homeapp.entities.User;
+import com.p.homeapp.loginAndRegister.LoginActivity;
+
 
 
 public class MainActivity extends AppCompatActivity {
 
 
     private static final int TIME_OUT = 2000;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,5 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.startActivity(intent);
             MainActivity.this.finish();
         }
-
-
     }
 }

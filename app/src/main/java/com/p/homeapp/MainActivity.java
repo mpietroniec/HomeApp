@@ -18,10 +18,7 @@ import com.p.homeapp.loginAndRegister.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private static final int TIME_OUT = 2000;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityStarter starter = new ActivityStarter();
         starter.start();
-
     }
 
     private class ActivityStarter extends Thread {

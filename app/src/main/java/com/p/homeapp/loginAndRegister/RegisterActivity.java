@@ -26,10 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText eTxtLogin, eTxtEmail, eTxtPassword;
     Button btnRegister;
     TextView txtLogin;
-
     DBHelper dbHelper;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         txtLogin = findViewById(R.id.txt_signIn);
 
-
         dbHelper = new DBHelper(RegisterActivity.this);
 
         btnRegister.setOnClickListener((v)->{
@@ -54,13 +50,19 @@ public class RegisterActivity extends AppCompatActivity {
             user.setRole("ROLE_USER");
 
             boolean success = dbHelper.addOne(user);
-            Toast.makeText(RegisterActivity.this, "Success: " + success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Success: " + success + user.getPassword(), Toast.LENGTH_LONG).show();
 
             eTxtLogin.setText("");
             eTxtEmail.setText("");
             eTxtPassword.setText("");
 
             dbHelper.close();
+
+            Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+
+            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
         });
 
         txtLogin.setOnClickListener((v)-> {

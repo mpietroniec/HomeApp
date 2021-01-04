@@ -3,6 +3,8 @@ package com.p.homeapp.entities;
 import java.time.LocalDateTime;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCryptFormatter;
+import at.favre.lib.crypto.bcrypt.BCryptParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,24 +24,22 @@ public class User {
     private LocalDateTime createDate;
     private String role;
 
-    public User(long id, String login, String email, String password, LocalDateTime createDate) {
+    public User(long id, String login, String email, String password) {
 
         this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
-        this.createDate = LocalDateTime.now();
         this.role = "ROLE_USER";
     }
 
-    public void setPassword(String password) {
+    public void hashPassword(String password) {
         String hashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        this.password = password;
+        this.password = hashed;
     }
 
     public boolean checkPassword(String password){
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), this.password);
-        System.out.println(password + " " + this.password + " " + result.verified);
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), password);
         return result.verified;
     }
 
@@ -50,7 +50,6 @@ public class User {
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", createDate=" + createDate +
                 ", role='" + role + '\'' +
                 '}';
     }

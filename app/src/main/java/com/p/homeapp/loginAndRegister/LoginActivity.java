@@ -3,9 +3,7 @@ package com.p.homeapp.loginAndRegister;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +12,8 @@ import android.widget.Toast;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -38,14 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String username = eTxtLogin.getText().toString();
             String password = eTxtPassword.getText().toString();
-            User user = dbHelper.checkUsername(username);
-            System.out.println("123 = " + password);
+            User user = dbHelper.getUser(username);
             if(user.checkPassword(password)){
-                Toast.makeText(LoginActivity.this, user.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(LoginActivity.this, "Wrong password. Please try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
             }
-
         });
 
         txtRegister.setOnClickListener((v) -> {
@@ -53,4 +51,5 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(RegisterIntent);
         });
     }
+
 }

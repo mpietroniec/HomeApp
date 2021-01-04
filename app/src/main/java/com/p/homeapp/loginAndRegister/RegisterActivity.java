@@ -13,13 +13,8 @@ import android.widget.Toast;
 
 
 import com.p.homeapp.DB.DBHelper;
-import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,8 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
             User user = new User();
             user.setLogin(eTxtLogin.getText().toString());
             user.setEmail(eTxtEmail.getText().toString());
-            user.setPassword(eTxtPassword.getText().toString());
-            user.setCreateDate(LocalDateTime.now());
+            user.hashPassword(eTxtPassword.getText().toString());;
             user.setRole("ROLE_USER");
 
             boolean success = dbHelper.addOne(user);
@@ -57,8 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
             eTxtPassword.setText("");
 
             dbHelper.close();
-
-            Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
 
             Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(loginIntent);

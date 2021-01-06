@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             if(BCryptHelper.checkPassword(password, user.getPassword())){
                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
             }
         });
 

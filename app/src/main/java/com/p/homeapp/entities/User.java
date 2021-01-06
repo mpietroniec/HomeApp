@@ -1,9 +1,10 @@
 package com.p.homeapp.entities;
 
-
 import java.time.LocalDateTime;
 
-
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCryptFormatter;
+import at.favre.lib.crypto.bcrypt.BCryptParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class User {
     private LocalDateTime createDate;
     private String role;
 
-    public User(long id, String login, String email, String password, LocalDateTime createDate) {
+    public User(long id, String login, String email, String password) {
 
         this.id = id;
         this.login = login;
@@ -31,6 +32,18 @@ public class User {
         this.password = password;
         this.createDate = LocalDateTime.now();
         this.role = "ROLE_USER";
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createDate=" + createDate + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
 

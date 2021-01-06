@@ -15,6 +15,9 @@ import android.widget.Toast;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.helpers.BCryptHelper;
+
+import java.time.LocalDateTime;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -40,8 +43,9 @@ public class RegisterActivity extends AppCompatActivity {
             User user = new User();
             user.setLogin(eTxtLogin.getText().toString());
             user.setEmail(eTxtEmail.getText().toString());
-            user.hashPassword(eTxtPassword.getText().toString());;
+            user.setCreateDate(LocalDateTime.now());
             user.setRole("ROLE_USER");
+            BCryptHelper.hashPassword(user, eTxtPassword.getText().toString());
 
             boolean success = dbHelper.addOne(user);
             Toast.makeText(RegisterActivity.this, "Success: " + success + user.getPassword(), Toast.LENGTH_LONG).show();

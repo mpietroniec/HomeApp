@@ -30,17 +30,8 @@ public class User {
         this.login = login;
         this.email = email;
         this.password = password;
+        this.createDate = LocalDateTime.now();
         this.role = "ROLE_USER";
-    }
-
-    public void hashPassword(String password) {
-        String hashed = BCrypt.withDefaults().hashToString(12, password.toCharArray());
-        this.password = hashed;
-    }
-
-    public boolean checkPassword(String password){
-        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), password);
-        return result.verified;
     }
 
     @Override
@@ -50,6 +41,7 @@ public class User {
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", createDate=" + createDate + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

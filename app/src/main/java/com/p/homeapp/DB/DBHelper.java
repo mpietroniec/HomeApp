@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_LOGIN = "LOGIN";
     public static final String COLUMN_EMAIL = "EMAIL";
     public static final String COLUMN_PASSWORD = "PASSWORD";
+    public static final String COLUMN_CREATE_DATE = "CREATE_DATE";
     public static final String COLUMN_ROLE = "ROLE";
 
     public DBHelper(@Nullable Context context) {
@@ -34,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_LOGIN + " TEXT, "+
                 COLUMN_EMAIL + " TEXT, " +
                 COLUMN_PASSWORD + " TEXT, " +
+                COLUMN_CREATE_DATE + " DATE, " +
                 COLUMN_ROLE + " TEXT)";
 
         myDB.execSQL(createUserTableStatement);
@@ -53,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_LOGIN, user.getLogin());
         contentValues.put(COLUMN_EMAIL, user.getEmail());
         contentValues.put(COLUMN_PASSWORD, user.getPassword());
+        contentValues.put(COLUMN_CREATE_DATE, user.getCreateDate().toString());
         contentValues.put(COLUMN_ROLE, user.getRole());
 
         long insert = myDB.insert(USER_TABLE, null, contentValues);
@@ -78,7 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     user.setCreateDate(LocalDateTime.parse(cursor.getString(4)));
                 }
-                user.setRole(cursor.getString(4));
+                user.setRole(cursor.getString(5));
             } while (cursor.moveToNext());
         }
         cursor.close();

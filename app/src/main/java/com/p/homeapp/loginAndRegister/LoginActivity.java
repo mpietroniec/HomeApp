@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.helpers.BCryptHelper;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = eTxtLogin.getText().toString();
             String password = eTxtPassword.getText().toString();
             User user = dbHelper.getUser(username);
-            if(user.checkPassword(password)){
+            if(BCryptHelper.checkPassword(password, user.getPassword())){
                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();

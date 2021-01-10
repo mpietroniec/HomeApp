@@ -12,9 +12,9 @@ import android.widget.Toast;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
-import com.p.homeapp.helpers.BCryptHelper;
+import com.p.homeapp.helpers.AccountDataValidator;
+import com.p.homeapp.mainView.FragmentActivity;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
 
     DBHelper dbHelper;
+    AccountDataValidator accountDataValidator = new AccountDataValidator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> {
             String username = eTxtLogin.getText().toString();
             String password = eTxtPassword.getText().toString();
-            User user = dbHelper.getUser(username);
-            if(BCryptHelper.checkPassword(password, user.getPassword())){
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
+
+            if(!username.isEmpty()){
+                User user = dbHelper.getUser(username);
+                if(accountDataValidator.validateLoginData(user, password, getApplicationContext())){
+                    Intent LoginSuccessIntent = new Intent(LoginActivity.this, FragmentActivity.class);
+                    startActivity(LoginSuccessIntent);
+                    System.out.println("Success");
+                }
+
             }
         });
 

@@ -1,7 +1,6 @@
 package com.p.homeapp;
 
-import android.view.View;
 
 public interface ItemClickListener {
-    void onItemClickListener(View v, int position);
+    void onItemClickListener(int position);
 }

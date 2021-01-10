@@ -15,16 +15,19 @@ import android.widget.Toast;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.helpers.AccountDataValidator;
 import com.p.homeapp.helpers.BCryptHelper;
 
 import java.time.LocalDateTime;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText eTxtLogin, eTxtEmail, eTxtPassword;
+    EditText eTxtLogin, eTxtEmail, eTxtPassword, eTxtConfirmPassword;
     Button btnRegister;
     TextView txtLogin;
+
     DBHelper dbHelper;
+    AccountDataValidator accountDataValidator = new AccountDataValidator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +37,37 @@ public class RegisterActivity extends AppCompatActivity {
         eTxtLogin = findViewById(R.id.etxt_login);
         eTxtEmail = findViewById(R.id.etxt_email);
         eTxtPassword = findViewById(R.id.etxt_password);
+        eTxtConfirmPassword = findViewById(R.id.etxt_confirmPassword);
+
         btnRegister = findViewById(R.id.btn_register);
         txtLogin = findViewById(R.id.txt_signIn);
 
         dbHelper = new DBHelper(RegisterActivity.this);
 
         btnRegister.setOnClickListener((v)->{
+
+            String login = eTxtLogin.getText().toString();
+            String email = eTxtEmail.getText().toString();
+            String password = eTxtPassword.getText().toString();
+            String confirmPassword = eTxtConfirmPassword.getText().toString();
+
+            System.out.println("test: " + login + password + confirmPassword + email);
             User user = new User();
-            user.setLogin(eTxtLogin.getText().toString());
-            user.setEmail(eTxtEmail.getText().toString());
+            user.setLogin(login);
+            user.setEmail(email);
             user.setCreateDate(LocalDateTime.now());
             user.setRole("ROLE_USER");
-            BCryptHelper.hashPassword(user, eTxtPassword.getText().toString());
+            BCryptHelper.hashPassword(user, password);
 
-            boolean success = dbHelper.addOne(user);
-            Toast.makeText(RegisterActivity.this, "Success: " + success + user.getPassword(), Toast.LENGTH_LONG).show();
+            if(accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user, dbHelper)){
+                dbHelper.addOne(user);
 
-            eTxtLogin.setText("");
-            eTxtEmail.setText("");
-            eTxtPassword.setText("");
+                dbHelper.close();
 
-            dbHelper.close();
-
-            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
-            Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+            }
         });
 
         txtLogin.setOnClickListener((v)-> {

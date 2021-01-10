@@ -2,6 +2,7 @@
     <string name="app_name">HomeApp</string>
     <string name="login_or_email">Login lub email</string>
     <string name="password">Hasło</string>
+    <string name="confirmPassword">Powtórz Hasło</string>
     <string name="log_in">Zaloguj</string>
     <string name="not_registered">Nie masz konta?</string>
     <string name="register">ZAREJESTRUJ SIĘ</string>

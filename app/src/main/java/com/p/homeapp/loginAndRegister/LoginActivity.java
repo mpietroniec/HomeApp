@@ -13,6 +13,7 @@ import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
+import com.p.homeapp.mainView.FragmentActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -43,8 +44,11 @@ public class LoginActivity extends AppCompatActivity {
             if(!username.isEmpty()){
                 User user = dbHelper.getUser(username);
                 if(accountDataValidator.validateLoginData(user, password, getApplicationContext())){
+                    Intent LoginSuccessIntent = new Intent(LoginActivity.this, FragmentActivity.class);
+                    startActivity(LoginSuccessIntent);
                     System.out.println("Success");
                 }
+
             }
         });
 

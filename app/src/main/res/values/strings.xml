@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HomeApp</string>
-    <string name="login_or_email">Login lub email</string>
+    <string name="login_or_email">Login or e-mail</string>
     <string name="password">Hasło</string>
     <string name="confirmPassword">Powtórz Hasło</string>
     <string name="log_in">Zaloguj</string>
@@ -12,4 +12,5 @@
     <string name="e_mail">E-mail</string>
     <string name="account">Posiadasz konto?</string>
     <string name="log_in_btn">ZALOGUJ SIĘ</string>
+    <string name="login_successful">Login successful</string>
 </resources>

@@ -1,12 +1,16 @@
 package com.p.homeapp.helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.p.homeapp.DB.DBHelper;
+import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.loginAndRegister.LoginActivity;
+import com.p.homeapp.mainView.FragmentActivity;
 
 import java.util.regex.Pattern;
 
@@ -17,7 +21,7 @@ public class AccountDataValidator extends AppCompatActivity {
     public boolean validateLoginData(User user, String password, Context context){
         if(isUserExist(user, context)){
             if(isPasswordCorrect(user, password, context) && isUserExist(user, context)){
-                Toast.makeText(context, "Login successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.login_successful, Toast.LENGTH_LONG).show();
                 return true;
             }
         }

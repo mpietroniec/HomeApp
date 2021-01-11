@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
             String password = eTxtPassword.getText().toString();
             String confirmPassword = eTxtConfirmPassword.getText().toString();
 
-            System.out.println("test: " + login + password + confirmPassword + email);
             User user = new User();
             user.setLogin(login);
             user.setEmail(email);
@@ -66,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
-                Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.register_successful, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
                 if(accountDataValidator.validateLoginData(user, password, getApplicationContext())){
                     Intent LoginSuccessIntent = new Intent(LoginActivity.this, FragmentActivity.class);
                     startActivity(LoginSuccessIntent);
-                    System.out.println("Success");
                 }
 
             }

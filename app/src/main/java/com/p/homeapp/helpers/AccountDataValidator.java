@@ -1,7 +1,6 @@
 package com.p.homeapp.helpers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
-import com.p.homeapp.loginAndRegister.LoginActivity;
-import com.p.homeapp.mainView.FragmentActivity;
 
 import java.util.regex.Pattern;
 
@@ -32,20 +29,19 @@ public class AccountDataValidator extends AppCompatActivity {
         if (user.getId() != 0 ) {
             return true;
         }
-        Toast.makeText(context, "User doesn't exist", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.user_does_not_exist, Toast.LENGTH_LONG).show();
         return false;
     }
 
     private boolean isPasswordCorrect(User user, String password, Context context){
-        System.out.println("password: " + password.isEmpty());
         if(password.isEmpty()){
-            Toast.makeText(context, "Password field is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.password_field_empty, Toast.LENGTH_LONG).show();
             return false;
         }
         if(BCryptHelper.checkPassword(password, user.getPassword())){
             return true;
         }
-        Toast.makeText(context, "Password incorrect", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.password_incorrect, Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -65,7 +61,7 @@ public class AccountDataValidator extends AppCompatActivity {
         if(password.equals(confirmPassword)){
             return true;
         }
-        Toast.makeText(context, "Confirmed password incorrect", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.confirmed_password_incorrect, Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -74,22 +70,21 @@ public class AccountDataValidator extends AppCompatActivity {
         if(user.getId() == 0){
             return true;
         }
-
-        Toast.makeText(context, "Username already exist", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.user_already_exist, Toast.LENGTH_LONG).show();
         return false;
     }
 
     private boolean isRegisterFieldsEmpty(Context context, String login, String email, String password){
         if(login == null || login.isEmpty() || login.equals("")){
-            Toast.makeText(context, "Login field is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.login_field_empty, Toast.LENGTH_LONG).show();
             return false;
         }
         if(email == null || email.isEmpty() || email.equals("")){
-            Toast.makeText(context, "Email field is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.email_field_empty, Toast.LENGTH_LONG).show();
             return false;
         }
         if(password == null || password.isEmpty() || password.equals("")){
-            Toast.makeText(context, "Password field is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.password_field_empty, Toast.LENGTH_LONG).show();
             return false;
         }
         return true;
@@ -100,7 +95,7 @@ public class AccountDataValidator extends AppCompatActivity {
         if (pattern.matcher(login).matches()){
             return true;
         }
-        Toast.makeText(context, "Login must start with a letter, end with a letter or digit and must be shorter than 19", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.login_not_match, Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -109,7 +104,7 @@ public class AccountDataValidator extends AppCompatActivity {
         if(pattern.matcher(email).matches()){
             return true;
         }
-        Toast.makeText(context, "Email is incorrect", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.email_not_match, Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -118,7 +113,7 @@ public class AccountDataValidator extends AppCompatActivity {
         if(pattern.matcher(password).matches()){
             return true;
         }
-        Toast.makeText(context, "Password must have one letter, one digit and can't be shorter than 6 characters", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, R.string.password_not_match, Toast.LENGTH_LONG).show();
         return false;
     }
 }

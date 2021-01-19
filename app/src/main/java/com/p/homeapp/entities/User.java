@@ -2,14 +2,10 @@ package com.p.homeapp.entities;
 
 import java.time.LocalDateTime;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.crypto.bcrypt.BCryptFormatter;
-import at.favre.lib.crypto.bcrypt.BCryptParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -25,7 +21,6 @@ public class User {
     private String role;
 
     public User(long id, String login, String email, String password) {
-
         this.id = id;
         this.login = login;
         this.email = email;

@@ -13,4 +13,20 @@
     <string name="account">Posiadasz konto?</string>
     <string name="log_in_btn">ZALOGUJ SIĘ</string>
     <string name="login_successful">Login successful</string>
+    <string name="task_name">Task name</string>
+    <string name="task_date">Date (optional)</string>
+    <string name="task_for">For:</string>
+    <string name="select_all">Select all</string>
+    <string name="save">Save</string>
+    <string name="group">Group</string>
+    <string name="deadline">Deadline</string>
+    <string name="sort_alphabetically">Sort alphabetically</string>
+    <string name="show_homework_only">Show homework only</string>
+    <string name="show_purchases_only">Show purchases only</string>
+    <string name="archives">Archives</string>
+
+    <string-array name="tasks_types">
+        <item name="homework">Homework</item>
+        <item name="shopping">Shopping</item>
+    </string-array>
 </resources>

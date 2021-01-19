@@ -14,8 +14,6 @@ import java.util.Objects;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.loginAndRegister.LoginActivity;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int TIME_OUT = 2000;

@@ -7,13 +7,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
-import com.p.homeapp.mainView.FragmentActivity;
+import com.p.homeapp.views.mainView.FragmentActivity;
 
 
 public class LoginActivity extends AppCompatActivity {

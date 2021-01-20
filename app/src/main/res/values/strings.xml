@@ -26,4 +26,5 @@
     <string name="email_not_match">Email is incorrect</string>
     <string name="password_not_match">Password must have one letter, one digit and can\'t
         be shorter than 6 characters</string>
+    <string name="empty_credentials">Empty credentials!</string>
 </resources>

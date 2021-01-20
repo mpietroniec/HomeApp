@@ -16,22 +16,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private long id;
+    private String id;
     private String login;
     private String email;
-    private String password;
 
     private LocalDateTime createDate;
-    private String role;
 
-    public User(long id, String login, String email, String password) {
+    public User(String id, String login, String email) {
 
         this.id = id;
         this.login = login;
         this.email = email;
-        this.password = password;
         this.createDate = LocalDateTime.now();
-        this.role = "ROLE_USER";
+
     }
 
     @Override
@@ -40,9 +37,7 @@ public class User {
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", createDate=" + createDate + '\'' +
-                ", role='" + role + '\'' +
                 '}';
     }
 }

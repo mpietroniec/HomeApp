@@ -1,11 +1,11 @@
 package com.p.homeapp.helpers;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.p.homeapp.DB.DBHelper;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 
@@ -13,42 +13,9 @@ import java.util.regex.Pattern;
 
 public class AccountDataValidator extends AppCompatActivity {
 
-
-
-    public boolean validateLoginData(User user, String password, Context context){
-        if(isUserExist(user, context)){
-            if(isPasswordCorrect(user, password, context) && isUserExist(user, context)){
-                Toast.makeText(context, R.string.login_successful, Toast.LENGTH_LONG).show();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isUserExist(User user, Context context){
-        if (user.getId() != 0 ) {
-            return true;
-        }
-        Toast.makeText(context, R.string.user_does_not_exist, Toast.LENGTH_LONG).show();
-        return false;
-    }
-
-    private boolean isPasswordCorrect(User user, String password, Context context){
-        if(password.isEmpty()){
-            Toast.makeText(context, R.string.password_field_empty, Toast.LENGTH_LONG).show();
-            return false;
-        }
-        if(BCryptHelper.checkPassword(password, user.getPassword())){
-            return true;
-        }
-        Toast.makeText(context, R.string.password_incorrect, Toast.LENGTH_LONG).show();
-        return false;
-    }
-
-    public boolean validateRegisterData(Context context, String password, String confirmPassword, User user, DBHelper dbHelper){
+        public boolean validateRegisterData(Context context, String password, String confirmPassword, User user){
         if(isPasswordConfirmed(context, password, confirmPassword) &&
                 isRegisterFieldsEmpty(context, user.getLogin(), user.getEmail(), password) &&
-                isLoginExist(context, user.getLogin(), dbHelper) &&
                 isLoginMatches(context, user.getLogin()) &&
                 isEmailMatches(context, user.getEmail()) &&
                 isPasswordMatches(context, password)){
@@ -65,17 +32,8 @@ public class AccountDataValidator extends AppCompatActivity {
         return false;
     }
 
-    private boolean isLoginExist(Context context, String login, DBHelper dbHelper){
-        User user = dbHelper.getUser(login);
-        if(user.getId() == 0){
-            return true;
-        }
-        Toast.makeText(context, R.string.user_already_exist, Toast.LENGTH_LONG).show();
-        return false;
-    }
-
     private boolean isRegisterFieldsEmpty(Context context, String login, String email, String password){
-        if(login == null || login.isEmpty() || login.equals("")){
+        if(TextUtils.isEmpty(login)){
             Toast.makeText(context, R.string.login_field_empty, Toast.LENGTH_LONG).show();
             return false;
         }

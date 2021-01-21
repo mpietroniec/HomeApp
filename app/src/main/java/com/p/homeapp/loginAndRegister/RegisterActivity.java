@@ -1,9 +1,12 @@
 package com.p.homeapp.loginAndRegister;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,11 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.p.homeapp.DB.DBHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
-import com.p.homeapp.helpers.BCryptHelper;
 
 import java.time.LocalDateTime;
 
@@ -26,8 +36,12 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     TextView txtLogin;
 
-    DBHelper dbHelper;
-    AccountDataValidator accountDataValidator = new AccountDataValidator();
+    AccountDataValidator accountDataValidator;
+
+    private DatabaseReference mRootRef;
+    private FirebaseAuth mAuth;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,37 +56,67 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         txtLogin = findViewById(R.id.txt_signIn);
 
-        dbHelper = new DBHelper(RegisterActivity.this);
+        accountDataValidator = new AccountDataValidator();
 
-        btnRegister.setOnClickListener((v)->{
+        mRootRef = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(this);
+
+
+        txtLogin.setOnClickListener((v) -> {
+            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+        });
+
+
+        btnRegister.setOnClickListener((v) -> {
 
             String login = eTxtLogin.getText().toString();
             String email = eTxtEmail.getText().toString();
             String password = eTxtPassword.getText().toString();
             String confirmPassword = eTxtConfirmPassword.getText().toString();
 
-            System.out.println("test: " + login + password + confirmPassword + email);
             User user = new User();
             user.setLogin(login);
             user.setEmail(email);
             user.setCreateDate(LocalDateTime.now());
-            user.setRole("ROLE_USER");
-            BCryptHelper.hashPassword(user, password);
 
-            if(accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user, dbHelper)){
-                dbHelper.addOne(user);
-
-                dbHelper.close();
-
-                Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
-                Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+            if (accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user)) {
+                registerUser(user, password);
             }
         });
+    }
 
-        txtLogin.setOnClickListener((v)-> {
-            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
+    private void registerUser(User user, String password) {
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
+
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                user.setId(mAuth.getCurrentUser().getUid());
+                mRootRef.child("users").child(mAuth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(RegisterActivity.this, "Register successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

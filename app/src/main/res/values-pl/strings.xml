@@ -18,4 +18,21 @@
     <string name="archives">Archiwu</string>
     <string name="show_purchases_only">Pokaż tylko zakupy</string>
     <string name="show_homework_only">Pokaż tylko zadania domowe</string>
+
+
+    <string name="register_successful">Rejestracja pomyślna</string>
+    <string name="user_does_not_exist">Użytkownik nie istnieje</string>
+    <string name="password_field_empty">Pole hasło jest puste</string>
+    <string name="password_incorrect">Hasło nieprawidłowe</string>
+    <string name="confirmed_password_incorrect">Podane hasła nie są identyczne</string>
+    <string name="user_already_exist">Podana nazwa użytkownika jest zajęta</string>
+    <string name="login_field_empty">Pole login jest puste</string>
+    <string name="email_field_empty">Pole email jest puste</string>
+    <string name="login_not_match">Login musi zaczynać się literą, kończyć literą lub cyfrą
+        i nie może być dłuższy niż 19 znaków</string>
+    <string name="email_not_match">Podany email jest niepoprwany</string>
+    <string name="password_not_match">Hasło musi zawierać przynajmniej jedną literę, jedną cyfrę
+        i nie może być krótsze niż 6 znakó</string>
+    <string name="empty_credentials">Puste pola!</string>
 </resources>
+

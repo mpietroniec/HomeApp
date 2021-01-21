@@ -1,29 +1,31 @@
 package com.p.homeapp.loginAndRegister;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.p.homeapp.DB.DBHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.R;
-import com.p.homeapp.entities.User;
-import com.p.homeapp.helpers.AccountDataValidator;
-import com.p.homeapp.mainView.FragmentActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView txtRegister;
-    EditText eTxtLogin, eTxtPassword;
+    EditText eTxtEmail, eTxtPassword;
     Button btnLogin;
 
-    DBHelper dbHelper;
-    AccountDataValidator accountDataValidator = new AccountDataValidator();
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,30 +33,45 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         txtRegister = findViewById(R.id.txt_register);
-        eTxtLogin = findViewById(R.id.etxt_loign);
+        eTxtEmail = findViewById(R.id.etxt_email);
         eTxtPassword = findViewById(R.id.etxt_password);
         btnLogin = findViewById(R.id.btn_login);
 
-        dbHelper = new DBHelper(LoginActivity.this);
+        mAuth = FirebaseAuth.getInstance();
 
-        btnLogin.setOnClickListener(v -> {
-            String username = eTxtLogin.getText().toString();
-            String password = eTxtPassword.getText().toString();
-
-            if(!username.isEmpty()){
-                User user = dbHelper.getUser(username);
-                if(accountDataValidator.validateLoginData(user, password, getApplicationContext())){
-                    Intent LoginSuccessIntent = new Intent(LoginActivity.this, FragmentActivity.class);
-                    startActivity(LoginSuccessIntent);
-                }
-
-            }
-        });
 
         txtRegister.setOnClickListener((v) -> {
             Intent RegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(RegisterIntent);
         });
+
+        btnLogin.setOnClickListener(v -> {
+            String email = eTxtEmail.getText().toString();
+            String password = eTxtPassword.getText().toString();
+
+            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                Toast.makeText(LoginActivity.this, R.string.empty_credentials, Toast.LENGTH_SHORT).show();
+            } else {
+                loginUser(email, password);
+            }
+        });
     }
 
+    private void loginUser(String email, String password) {
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

@@ -2,14 +2,10 @@ package com.p.homeapp.entities;
 
 import java.time.LocalDateTime;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
-import at.favre.lib.crypto.bcrypt.BCryptFormatter;
-import at.favre.lib.crypto.bcrypt.BCryptParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -22,13 +18,13 @@ public class User {
 
     private LocalDateTime createDate;
 
+
     public User(String id, String login, String email) {
 
         this.id = id;
         this.login = login;
         this.email = email;
         this.createDate = LocalDateTime.now();
-
     }
 
     @Override

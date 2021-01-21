@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintTop_toTopOf="parent">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/id_task_date_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/task_name"
+        android:textColor="@color/colorBasicText"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/id_task_date_date_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_task_date_name_txt"
+        android:text="@string/deadline"
+        android:textColor="@color/colorBasicText"
+        android:textSize="18sp"
+        android:textStyle="italic"/>
+
+    <CheckBox
+        android:id="@+id/id_task_date_done_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/checkbox_selector"
+        android:button="@null"
+        android:scaleX="0.7"
+        android:scaleY="0.7"/>
+
+    <ImageView
+        android:id="@+id/id_task_date_type_img"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="30dp"
+        android:layout_toStartOf="@+id/id_task_date_done_btn"/>
+
+</RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -3,6 +3,8 @@ package com.p.homeapp.loginAndRegister;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.R;
+import com.p.homeapp.views.mainView.FragmentActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -64,7 +67,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
-
+Intent intent = new Intent(LoginActivity.this, FragmentActivity.class);
+startActivity(intent);
+finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

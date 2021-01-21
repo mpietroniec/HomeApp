@@ -1,7 +1,9 @@
 package com.p.homeapp.helpers;
 
 import android.content.Context;
+
 import android.text.TextUtils;
+
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,9 @@ import java.util.regex.Pattern;
 
 public class AccountDataValidator extends AppCompatActivity {
 
+
         public boolean validateRegisterData(Context context, String password, String confirmPassword, User user){
+
         if(isPasswordConfirmed(context, password, confirmPassword) &&
                 isRegisterFieldsEmpty(context, user.getLogin(), user.getEmail(), password) &&
                 isLoginMatches(context, user.getLogin()) &&

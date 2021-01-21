@@ -2,8 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_home_menu"
         android:icon="@drawable/ic_baseline_group_24"
-        android:title="Grupa"
+        android:title="@string/group"
         app:showAsAction="ifRoom"/>
+    <group>
+        <item
+            android:id="@+id/id_sort_alphabetically"
+            android:title="@string/sort_alphabetically"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/id_show_homework_only_menu"
+            android:title="@string/show_homework_only"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/id_show_purchases_only_menu"
+            android:title="@string/show_purchases_only"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/id_archives_menu"
+            android:title="@string/archives"
+            app:showAsAction="never"/>
+    </group>
 </menu>

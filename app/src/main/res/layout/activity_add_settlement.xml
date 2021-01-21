@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".views.addingTasksViews.AddTaskActivity">
+
+    <EditText
+        android:id="@+id/id_expenditure_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:autofillHints="@string/task_name"
+        android:backgroundTint="@color/colorBasicText"
+        android:drawableStart="@drawable/ic_baseline_add_task_26"
+        android:drawablePadding="10dp"
+        android:hint="Expense name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@color/colorBasicText"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/id_expenditure_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_expenditure_name"
+        android:layout_marginTop="20dp"
+        android:autofillHints="Cost"
+        android:backgroundTint="@color/colorBasicText"
+        android:drawableStart="@drawable/ic_baseline_attach_money_26"
+        android:drawablePadding="10dp"
+        android:hint="Cost"
+        android:inputType="date"
+        android:maxLines="1"
+        android:textColor="@color/colorBasicText"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/id_expenditure_image"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/id_expenditure_amount"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/activity_add_custom"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_baseline_photo_camera_26" />
+
+    <TextView
+        android:id="@+id/id_task_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_expenditure_image"
+        android:layout_marginTop="20dp"
+        android:text="@string/task_for"
+        android:textColor="@color/colorBasicText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/id_select_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_expenditure_image"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:drawableStart="@drawable/ic_baseline_check_26"
+        android:text="@string/select_all"
+        android:textColor="@color/colorBasicText"
+        android:textSize="18sp" />
+
+    <FrameLayout
+        android:id="@+id/id_task_owners_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/id_save_task"
+        android:layout_below="@id/id_task_owner"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/activity_add_custom" />
+
+    <Button
+        android:id="@+id/id_save_task"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/save" />
+
+</RelativeLayout>

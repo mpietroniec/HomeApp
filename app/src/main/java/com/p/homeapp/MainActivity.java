@@ -7,14 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+
 import com.p.homeapp.loginAndRegister.LoginActivity;
 
 import java.util.Objects;
 
 import com.p.homeapp.entities.User;
 import com.p.homeapp.loginAndRegister.LoginActivity;
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             MainActivity.this.startActivity(intent);
             MainActivity.this.finish();
+            // test
         }
     }
 }

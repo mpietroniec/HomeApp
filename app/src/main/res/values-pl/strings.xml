@@ -3,6 +3,23 @@
     <string name="app_name">HomeApp</string>
     <string name="login_successful">Udało się zalogować</string>
     <string name="login_or_email">Login lub e-mail</string>
+    <string name="task_name">Nazwa zadania</string>
+    <string name="task_date">Data (opcjonalnie)</string>
+    <string name="task_for">Dla kogo:</string>
+    <string name="select_all">Zaznacz wszystkich</string>
+    <string name="save">Zapisz</string>
+    <string-array name="tasks_types">
+        <item name="homework">Dom</item>
+        <item name="shopping">Zakupy</item>
+    </string-array>
+    <string name="group">Grupa</string>
+    <string name="deadline">Termin</string>
+    <string name="sort_alphabetically">Sortuj alfabetycznie</string>
+    <string name="archives">Archiwu</string>
+    <string name="show_purchases_only">Pokaż tylko zakupy</string>
+    <string name="show_homework_only">Pokaż tylko zadania domowe</string>
+
+
     <string name="register_successful">Rejestracja pomyślna</string>
     <string name="user_does_not_exist">Użytkownik nie istnieje</string>
     <string name="password_field_empty">Pole hasło jest puste</string>
@@ -18,3 +35,4 @@
         i nie może być krótsze niż 6 znakó</string>
     <string name="empty_credentials">Puste pola!</string>
 </resources>
+

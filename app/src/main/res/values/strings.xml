@@ -24,6 +24,8 @@
     <string name="show_homework_only">Show homework only</string>
     <string name="show_purchases_only">Show purchases only</string>
     <string name="archives">Archives</string>
+    <string name="logout">Logout</string>
+    <string name="logged_out">Logged Out</string>
 
     <string-array name="tasks_types">
         <item name="homework">Homework</item>

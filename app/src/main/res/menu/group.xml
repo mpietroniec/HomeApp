@@ -23,5 +23,11 @@
             android:id="@+id/id_archives_menu"
             android:title="@string/archives"
             app:showAsAction="never"/>
+
+        <item
+            android:id="@+id/id_log_out"
+            android:title="@string/logout"
+            app:showAsAction="never"
+            android:onClick="logout"/>
     </group>
 </menu>

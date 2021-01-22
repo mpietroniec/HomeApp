@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             String email = eTxtEmail.getText().toString();
             String password = eTxtPassword.getText().toString();
 
-            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(LoginActivity.this, R.string.empty_credentials, Toast.LENGTH_SHORT).show();
             } else {
                 loginUser(email, password);
@@ -65,11 +64,11 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, R.string.login_successful, Toast.LENGTH_SHORT).show();
-Intent intent = new Intent(LoginActivity.this, FragmentActivity.class);
-startActivity(intent);
-finish();
+                    Intent intent = new Intent(LoginActivity.this, FragmentActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -78,5 +77,14 @@ finish();
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, FragmentActivity.class));
+            finish();
+        }
     }
 }

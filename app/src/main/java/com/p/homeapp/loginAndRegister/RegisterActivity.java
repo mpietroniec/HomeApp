@@ -23,7 +23,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
@@ -63,13 +62,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-
         txtLogin.setOnClickListener((v) -> {
             Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();
         });
-
 
         btnRegister.setOnClickListener((v) -> {
 

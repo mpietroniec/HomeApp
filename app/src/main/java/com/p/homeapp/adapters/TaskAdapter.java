@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.p.homeapp.ItemClickListener;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.Task;
+import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.updateTask.TaskUpdateActivity;
 
 import java.util.ArrayList;
@@ -53,7 +54,8 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case 1:
                 TaskWithDateViewHolder taskWithDateViewHolder = (TaskWithDateViewHolder) holder;
                 taskWithDateViewHolder.taskName.setText(mTasks.get(position).getTaskName());
-                taskWithDateViewHolder.taskDeadline.setText(String.valueOf(mTasks.get(position).getDeadline()));
+                //taskWithDateViewHolder.taskDeadline.setText(String.valueOf(mTasks.get(position).getDeadline()));
+                taskWithDateViewHolder.taskDeadline.setText(DateParser.dateToStringParser(mTasks.get(position).getDeadline()));
                 taskWithDateViewHolder.taskType.setImageResource(mTasks.get(position).getDrawable());
                 taskWithDateViewHolder.taskReviewLayout.setOnClickListener(v -> {
                     if (taskWithDateViewHolder.taskExpandableView.getVisibility() == View.GONE) {

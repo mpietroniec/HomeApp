@@ -20,11 +20,13 @@ import com.p.homeapp.ItemClickListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.TaskAdapter;
 import com.p.homeapp.entities.Task;
+import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FragmentTasks extends Fragment implements ItemClickListener {
     //UI components
@@ -59,7 +61,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
             Task task = new Task();
             task.setTaskName("Name: " + i);
             if(i%2==0){
-                task.setDeadline("LocalDate.now()");
+                task.setDeadline(DateParser.stringToDateParser("2000-01-01"));
                 task.setDrawable(R.drawable.ic_baseline_shopping_cart_26);
             } else {
 

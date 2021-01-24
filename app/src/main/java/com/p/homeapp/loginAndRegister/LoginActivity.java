@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        txtRegister.setOnClickListener((v) -> {
+        txtRegister.setOnClickListener(v -> {
             Intent RegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(RegisterIntent);
         });

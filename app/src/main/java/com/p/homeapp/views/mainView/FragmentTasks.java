@@ -22,6 +22,7 @@ import com.p.homeapp.adapters.TaskAdapter;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
             Task task = new Task();
             task.setTaskName("Name: " + i);
             if(i%2==0){
-                task.setDeadline(LocalDateTime.now());
+                task.setDeadline("LocalDate.now()");
                 task.setDrawable(R.drawable.ic_baseline_shopping_cart_26);
             } else {
 

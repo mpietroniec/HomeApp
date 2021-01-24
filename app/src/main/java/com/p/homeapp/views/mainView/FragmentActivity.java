@@ -3,14 +3,23 @@ package com.p.homeapp.views.mainView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 
 public class FragmentActivity extends AppCompatActivity {
+
+    MenuItem itemLogout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +28,7 @@ public class FragmentActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.id_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_container, new FragmentTasks()).commit();
+
     }
 
     @Override
@@ -42,4 +52,12 @@ public class FragmentActivity extends AppCompatActivity {
                         selectedFragment).commit();
                 return true;
             };
+
+
+    public void logout(MenuItem item) {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(FragmentActivity.this, R.string.logged_out, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(FragmentActivity.this, MainActivity.class));
+        finish();
+    }
 }

@@ -18,7 +18,8 @@
     <string name="archives">Archiwu</string>
     <string name="show_purchases_only">Pokaż tylko zakupy</string>
     <string name="show_homework_only">Pokaż tylko zadania domowe</string>
-
+    <string name="logout">Wyloguj</string>
+    <string name="logged_out">Wylogowano</string>
 
     <string name="register_successful">Rejestracja pomyślna</string>
     <string name="user_does_not_exist">Użytkownik nie istnieje</string>

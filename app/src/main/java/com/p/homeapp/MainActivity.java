@@ -8,12 +8,14 @@ import android.os.Bundle;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.loginAndRegister.LoginActivity;
 
 import java.util.Objects;
 
 import com.p.homeapp.entities.User;
 import com.p.homeapp.loginAndRegister.LoginActivity;
+import com.p.homeapp.views.mainView.FragmentActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,4 +46,5 @@ public class MainActivity extends AppCompatActivity {
             // test
         }
     }
+
 }

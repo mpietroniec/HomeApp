@@ -34,5 +34,7 @@
     <string name="password_not_match">Hasło musi zawierać przynajmniej jedną literę, jedną cyfrę
         i nie może być krótsze niż 6 znakó</string>
     <string name="empty_credentials">Puste pola!</string>
+    <string name="update">Zaktualizuj</string>
+    <string name="delete">Usuń</string>
 </resources>
 

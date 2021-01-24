@@ -15,12 +15,9 @@ public class User {
     private String id;
     private String login;
     private String email;
-
     private LocalDateTime createDate;
 
-
     public User(String id, String login, String email) {
-
         this.id = id;
         this.login = login;
         this.email = email;

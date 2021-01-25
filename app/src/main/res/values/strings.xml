@@ -48,5 +48,7 @@
     <string name="empty_credentials">Empty credentials!</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
-
+    <string name="user_profile">User profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

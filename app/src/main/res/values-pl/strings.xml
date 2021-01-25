@@ -18,7 +18,6 @@
     <string name="archives">Archiwu</string>
     <string name="show_purchases_only">Pokaż tylko zakupy</string>
     <string name="show_homework_only">Pokaż tylko zadania domowe</string>
-    <string name="logout">Wyloguj</string>
     <string name="logged_out">Wylogowano</string>
 
     <string name="register_successful">Rejestracja pomyślna</string>
@@ -37,5 +36,7 @@
     <string name="empty_credentials">Puste pola!</string>
     <string name="update">Zaktualizuj</string>
     <string name="delete">Usuń</string>
+    <string name="logout">Wyloguj</string>
+    <string name="user_profile">Profil użytkownika</string>
 </resources>
 

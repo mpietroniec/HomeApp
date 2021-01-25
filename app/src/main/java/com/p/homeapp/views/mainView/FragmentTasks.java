@@ -57,7 +57,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
     }
 
     private void insertFakeTasks() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 1; i <= 50; i++) {
             Task task = new Task();
             task.setTaskName("Name: " + i);
             if(i%2==0){
@@ -77,9 +77,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
         mRecyclerViewWithDate.setLayoutManager(linearLayoutManager);
 
         mTaskWithDateAdapter = new TaskAdapter(mTasks,this);
-        //mTaskWithoutDateAdapter = new TaskWithoutDateAdapter(mTasks, this);
         mRecyclerViewWithDate.setAdapter(mTaskWithDateAdapter);
-       // mRecyclerViewWithoutDate.setAdapter(mTaskWithoutDateAdapter);
     }
 
     @Override

@@ -20,13 +20,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Task {
 
-    private long id;
+    private String id;
     private String taskName;
     private Date deadline;
     private String taskType;
     private boolean taskNotification;
     private int drawable;
-
+    private String targetUserId;
 
     @Override
     public String toString() {

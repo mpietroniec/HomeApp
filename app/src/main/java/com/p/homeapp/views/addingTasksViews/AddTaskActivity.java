@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
@@ -56,7 +57,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         chBoxTaskNotification = findViewById(R.id.id_task_notification_checkbox);
         saveTaskButton = findViewById(R.id.id_save_task_btn);
 
-        mRootRef = FirebaseDatabase.getInstance().getReference();
+        mRootRef = FirebaseDatabase.getInstance().getReference("tasks");
 
         eTxtTaskDeadline.setOnClickListener(v -> {
             DialogFragment datePicker = new DatePickerFragment();
@@ -70,11 +71,15 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
             String taskType = spinnerTaskType.getSelectedItem().toString();
             String taskDeadline = eTxtTaskDeadline.getText().toString();
             boolean taskNotification = chBoxTaskNotification.isChecked();
+
+            String taskId = mRootRef.push().getKey();
+
             Task task = new Task();
             task.setTaskName(taskName);
             task.setTaskType(taskType);
             task.setDeadline(DateParser.stringToDateParser(taskDeadline));
             task.setTaskNotification(taskNotification);
+            task.setId(taskId);
 
             saveTask(task);
         });
@@ -97,7 +102,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
 
     public void saveTask(Task task) {
 
-        FirebaseDatabase.getInstance().getReference().child("tasks").push().setValue(task);
+        FirebaseDatabase.getInstance().getReference("tasks").child(task.getId()).setValue(task);
         Toast.makeText(AddTaskActivity.this, "Added task", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AddTaskActivity.this, FragmentActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

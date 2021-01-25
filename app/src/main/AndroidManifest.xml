@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.updateTask.TaskUpdateActivity"
-            android:parentActivityName=".views.mainView.FragmentActivity"/>
+        <activity android:name=".views.groupView.GroupActivity"></activity>
+        <activity
+            android:name=".views.updateTask.TaskUpdateActivity"
+            android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.addingSettlementViews.AddSettlementActivity"
             android:parentActivityName=".views.mainView.FragmentActivity" />
@@ -19,7 +21,9 @@
             android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity android:name=".loginAndRegister.RegisterActivity" />
         <activity android:name=".loginAndRegister.LoginActivity" />
-        <activity android:name=".views.mainView.FragmentActivity" />
+        <activity
+            android:name=".views.mainView.FragmentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

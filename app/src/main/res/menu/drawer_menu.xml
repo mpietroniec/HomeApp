@@ -6,7 +6,8 @@
         <item
             android:id="@+id/nav_group"
             android:icon="@drawable/ic_baseline_group_26"
-            android:title="@string/group" />
+            android:title="@string/group"
+            android:onClick="startGroupActivity"/>
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_baseline_person_26"

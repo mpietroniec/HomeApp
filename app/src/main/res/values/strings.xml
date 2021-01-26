@@ -51,4 +51,6 @@
     <string name="user_profile">User profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="group_name">Group name</string>
+    <string name="group_description">Group description</string>
 </resources>

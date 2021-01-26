@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
+import com.p.homeapp.views.groupView.GroupActivity;
 
 public class FragmentActivity extends AppCompatActivity {
 
@@ -67,6 +68,7 @@ public class FragmentActivity extends AppCompatActivity {
                         break;
                     case R.id.id_nav_money_balance:
                         selectedFragment = new FragmentMoneyBalance();
+                        break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_container,
                         selectedFragment).commit();
@@ -78,6 +80,12 @@ public class FragmentActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(FragmentActivity.this, R.string.logged_out, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(FragmentActivity.this, MainActivity.class));
+        finish();
+    }
+
+    public void startGroupActivity(MenuItem item) {
+        Intent intent = new Intent(FragmentActivity.this, GroupActivity.class);
+        startActivityForResult(intent,1);
         finish();
     }
 }

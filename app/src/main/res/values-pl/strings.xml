@@ -38,5 +38,6 @@
     <string name="delete">Usuń</string>
     <string name="logout">Wyloguj</string>
     <string name="user_profile">Profil użytkownika</string>
+    <string name="group_name">Nazwa grupy</string>
 </resources>
 

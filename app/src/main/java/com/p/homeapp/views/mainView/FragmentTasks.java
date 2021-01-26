@@ -22,6 +22,7 @@ import com.p.homeapp.adapters.TaskAdapter;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
+import com.p.homeapp.views.groupView.GroupActivity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,6 +49,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
         mRecyclerViewWithDate = view.findViewById(R.id.id_recyclerView);
         addTaskButton = view.findViewById(R.id.id_add_button);
         addTaskButton.setOnClickListener(v -> {
+            // UWAGA UWAGA UWAGA zamienione klasy
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
             startActivity(intent);
         });

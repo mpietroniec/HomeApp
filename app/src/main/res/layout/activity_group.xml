@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".views.groupView.GroupActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/id_group_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_group_button"
         android:layout_width="wrap_content"
@@ -50,10 +55,5 @@
         android:tint="@android:color/white"
         android:visibility="invisible"
         app:backgroundTint="@color/colorPrimary" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_group_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </RelativeLayout>

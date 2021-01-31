@@ -58,6 +58,7 @@
             android:text="@string/register"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -80,5 +81,7 @@
             android:text="@string/remind_password"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
+
     </LinearLayout>
+
 </LinearLayout>

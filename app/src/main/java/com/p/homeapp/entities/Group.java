@@ -15,8 +15,8 @@ import lombok.Setter;
 public class Group {
 
     private String id;
-    private String name;
-    private String description;
+     public String name;
+    public String description;
     private User creator;
     private List<User> members;
     private List<Task> tasks;

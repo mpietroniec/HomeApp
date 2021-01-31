@@ -22,12 +22,8 @@ import com.p.homeapp.adapters.TaskAdapter;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
-import com.p.homeapp.views.groupView.GroupActivity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FragmentTasks extends Fragment implements ItemClickListener {
     //UI components

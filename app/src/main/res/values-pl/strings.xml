@@ -39,5 +39,7 @@
     <string name="logout">Wyloguj</string>
     <string name="user_profile">Profil użytkownika</string>
     <string name="group_name">Nazwa grupy</string>
+    <string name="group_description">Opis grupy</string>
+    <string name="e_mail">E-mail</string>
 </resources>
 

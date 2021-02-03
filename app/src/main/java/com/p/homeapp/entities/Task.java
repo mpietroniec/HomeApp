@@ -26,7 +26,7 @@ public class Task {
     private String taskType;
     private boolean taskNotification;
     private int drawable;
-    private String targetUserId;
+    private User user;
 
     @Override
     public String toString() {

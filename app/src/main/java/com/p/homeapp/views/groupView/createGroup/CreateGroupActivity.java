@@ -8,11 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
+
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.views.groupView.GroupActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateGroupActivity extends AppCompatActivity {
 
@@ -36,11 +41,20 @@ public class CreateGroupActivity extends AppCompatActivity {
             String groupName = eTxtGroupName.getText().toString();
             String groupDescription = eTxtGroupDescription.getText().toString();
             String groupId = mRootRef.push().getKey();
+            String creatorUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            List<String> membersIds = new ArrayList<>();
+            membersIds.add(creatorUserId);
+            List<String> tasksIds = new ArrayList<>();
+            tasksIds.add("0");
 
             Group group = new Group();
+
             group.setName(groupName);
             group.setDescription(groupDescription);
             group.setId(groupId);
+            group.setCreatorUserId(creatorUserId);
+            group.setMembersId(membersIds);
+            group.setTasksId(tasksIds);
 
             saveGroup(group);
         });

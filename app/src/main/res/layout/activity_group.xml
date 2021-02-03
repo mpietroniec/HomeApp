@@ -7,7 +7,7 @@
     tools:context=".views.groupView.GroupActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_group_recyclerView"
+        android:id="@+id/group_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -26,7 +26,7 @@
         app:backgroundTint="@color/colorPrimary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/id_add_new_group"
+        android:id="@+id/create_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/add_group_button"
@@ -35,17 +35,16 @@
         android:layout_marginBottom="10dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="startCreateActivity"
         android:src="@drawable/ic_baseline_group_26"
         android:tint="@android:color/white"
         android:visibility="invisible"
         app:backgroundTint="@color/colorPrimary" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/id_join_to_group"
+        android:id="@+id/join_to_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/id_add_new_group"
+        android:layout_above="@id/create_group"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"

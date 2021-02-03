@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.GroupAdapter;
@@ -51,7 +53,8 @@ public class GroupActivity extends AppCompatActivity {
         rvGroup.setLayoutManager(new LinearLayoutManager(this));
         rvGroup.setAdapter(groupAdapter);
 
-        readGroups();
+        //readGroups();
+        readUserGroups();
 
         flagIsClicked = false;
 
@@ -74,6 +77,29 @@ public class GroupActivity extends AppCompatActivity {
         });
     }
 
+    private void readUserGroups() {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query = FirebaseDatabase.getInstance().getReference().child("groups")
+                .orderByChild("creatorUserId").equalTo(currentUserId);
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mGroups.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Group group = dataSnapshot.getValue(Group.class);
+                    mGroups.add(group);
+                }
+                groupAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void readGroups() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("groups");
         reference.addValueEventListener(new ValueEventListener() {
@@ -92,5 +118,7 @@ public class GroupActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 }

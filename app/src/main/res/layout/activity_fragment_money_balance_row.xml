@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_row="0"
+    android:layout_rowWeight="1"
+    android:layout_column="0"
+    android:layout_columnWeight="1"
+    android:layout_margin="8dp"
+    android:elevation="8dp">
+
+    <RelativeLayout
+        android:id="@+id/money_balance_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/expenditure_name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Money balance"
+            android:textColor="@color/colorBasicText"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/expenditure_date_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expenditure_name_txt"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Date"
+            android:textColor="@color/colorBasicText"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/expenditure_amount_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:text="Amount"
+            android:textColor="@color/colorBasicText"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 public class FragmentTasks extends Fragment implements ItemClickListener {
     //UI components
-    private RecyclerView mRecyclerViewWithDate;
+    private RecyclerView mRecyclerView;
     private FloatingActionButton addTaskButton;
 
     //vars
     private ArrayList<Task> mTasks = new ArrayList<>();
 
-    private TaskAdapter mTaskWithDateAdapter;
+    private TaskAdapter mTaskAdapter;
     private Context context;
     private static final String TAG = "FragmentTask";
 
@@ -42,7 +42,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // return inflater.inflate(R.layout.activity_fragment_review, container, false);
         View view = inflater.inflate(R.layout.activity_fragment_tasks_review, container, false);
-        mRecyclerViewWithDate = view.findViewById(R.id.id_recyclerView);
+        mRecyclerView = view.findViewById(R.id.tasks_recyclerView);
         addTaskButton = view.findViewById(R.id.id_add_button);
         addTaskButton.setOnClickListener(v -> {
             // UWAGA UWAGA UWAGA zamienione klasy
@@ -67,15 +67,15 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
             }
             mTasks.add(task);
         }
-        mTaskWithDateAdapter.notifyDataSetChanged();
+        mTaskAdapter.notifyDataSetChanged();
     }
 
     private void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        mRecyclerViewWithDate.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mTaskWithDateAdapter = new TaskAdapter(mTasks,this);
-        mRecyclerViewWithDate.setAdapter(mTaskWithDateAdapter);
+        mTaskAdapter = new TaskAdapter(mTasks,this);
+        mRecyclerView.setAdapter(mTaskAdapter);
     }
 
     @Override

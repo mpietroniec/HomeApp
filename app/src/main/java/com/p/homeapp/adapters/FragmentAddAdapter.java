@@ -43,7 +43,7 @@ public class FragmentAddAdapter extends RecyclerView.Adapter<FragmentAddAdapter.
 
         public MembersViewHolder(@NonNull View itemView) {
             super(itemView);
-            userName = itemView.findViewById(R.id.id_user_name_txt);
+            userName = itemView.findViewById(R.id.user_name_txt);
         }
     }
 }

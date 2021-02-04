@@ -19,17 +19,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
+
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.mainView.FragmentActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
 
 public class AddTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 

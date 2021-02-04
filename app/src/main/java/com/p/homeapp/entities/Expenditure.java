@@ -12,6 +12,7 @@ import lombok.Setter;
 public class Expenditure {
     private long expenditureID;
     private String expenditureName;
+    private String expenditureDate;
     private float expenditureAmount;
 
     @Override
@@ -19,6 +20,7 @@ public class Expenditure {
         return "Expenditure{" +
                 "expenditureID=" + expenditureID +
                 ", expenditureName='" + expenditureName + '\'' +
+                ", expenditureDate='" + expenditureDate + '\'' +
                 ", expenditureAmount=" + expenditureAmount +
                 '}';
     }

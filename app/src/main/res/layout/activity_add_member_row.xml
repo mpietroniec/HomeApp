@@ -12,7 +12,7 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/id_user_name_txt"
+            android:id="@+id/user_name_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

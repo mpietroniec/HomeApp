@@ -6,43 +6,82 @@
     android:padding="20dp"
     tools:context=".views.groupView.GroupMenuActivity">
 
-    <EditText
-        android:id="@+id/group_name_update_etxt"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:autofillHints="@string/group"
-        android:backgroundTint="@color/colorBasicText"
-        android:drawableStart="@drawable/ic_baseline_group_26"
-        android:drawablePadding="10dp"
-        android:hint="@string/group"
-        android:inputType="text"
-        android:maxLines="1"
-        android:textColor="@color/colorBasicText"
-        android:textStyle="italic"/>
+        android:layout_alignParentEnd="true">
 
-    <EditText
-        android:id="@+id/group_description_update_etxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/group_name_update_etxt"
-        android:layout_marginTop="50dp"
-        android:drawableStart="@drawable/ic_baseline_short_text_26"
-        android:hint="@string/group_description"
-        android:autofillHints="@string/group_description"
-        android:inputType="text"
-        android:textColor="@color/colorBasicText"
-        android:textStyle="italic"
-        android:drawablePadding="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/find_user_by_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find by login"
-        android:gravity="center_vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/group_description_update_etxt"
-        android:layout_marginTop="50dp"/>
+            <LinearLayout
+                android:id="@+id/ll_group_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_group_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:maxLines="1"
+                        android:text="Group Name"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_group_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:maxLines="3"
+                        android:text="Group Description"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp">
+
+
+                        <Button
+                            android:id="@+id/bt_edit_group"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
+                            android:text="Edit Group"
+                            android:textSize="12sp"
+                            android:layout_marginEnd="35dp"/>
+
+                        <Button
+                            android:id="@+id/bt_invite_users"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
+                            android:text="Invite Users"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 
 </RelativeLayout>

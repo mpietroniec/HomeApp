@@ -15,14 +15,6 @@ public class User {
     private String id;
     private String login;
     private String email;
-    private LocalDateTime createDate;
-
-    public User(String id, String login, String email) {
-        this.id = id;
-        this.login = login;
-        this.email = email;
-        this.createDate = LocalDateTime.now();
-    }
 
     @Override
     public String toString() {
@@ -30,7 +22,6 @@ public class User {
                 "id=" + id +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
-                ", createDate=" + createDate + '\'' +
                 '}';
     }
 }

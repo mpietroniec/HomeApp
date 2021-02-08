@@ -48,6 +48,12 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         getGroup(groupId);
 
+        btInviteUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
+            }
+        });
 
 
     }
@@ -75,7 +81,7 @@ public class GroupMenuActivity extends AppCompatActivity {
     }
 
     public void openDialog() {
-        GroupMenuDialog groupMenuDialog = new GroupMenuDialog();
+        GroupMenuDialog groupMenuDialog = new GroupMenuDialog(groupId, getApplicationContext());
         groupMenuDialog.show(getSupportFragmentManager(), "Group dialog");
     }
 }

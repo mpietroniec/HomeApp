@@ -5,9 +5,9 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/find_user_name_etxt"
+        android:id="@+id/etxt_find_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/login" />
+        android:hint="Enter Username" />
 
 </RelativeLayout>

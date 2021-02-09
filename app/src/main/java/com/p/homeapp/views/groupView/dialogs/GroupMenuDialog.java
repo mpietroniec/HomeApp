@@ -1,4 +1,4 @@
-package com.p.homeapp.views.groupView;
+package com.p.homeapp.views.groupView.dialogs;
 
 import android.app.Application;
 import android.app.Dialog;

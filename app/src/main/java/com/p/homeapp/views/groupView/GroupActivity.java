@@ -79,8 +79,8 @@ public class GroupActivity extends AppCompatActivity {
 
     private void readUserGroups() {
         String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query query = FirebaseDatabase.getInstance().getReference().child("groups")
-                .orderByChild("creatorUserId").equalTo(currentUserId);
+        Query query = FirebaseDatabase.getInstance().getReference().child("groups");
+
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,6 +88,7 @@ public class GroupActivity extends AppCompatActivity {
                 mGroups.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Group group = dataSnapshot.getValue(Group.class);
+                    if(group.getMembersId().contains(currentUserId))
                     mGroups.add(group);
                 }
                 groupAdapter.notifyDataSetChanged();

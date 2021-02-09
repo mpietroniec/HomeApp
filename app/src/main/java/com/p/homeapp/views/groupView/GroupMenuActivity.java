@@ -76,8 +76,8 @@ public class GroupMenuActivity extends AppCompatActivity {
                         txtGroupDescription.setText(group.getDescription());
                         txtGroupName.setText(group.getName());
                         if(!group.getCreatorUserId().equals(firebaseUser.getUid())){
-                            btEditGroup.setVisibility(View.INVISIBLE);
-                            btInviteUsers.setVisibility(View.INVISIBLE);
+                            btEditGroup.setVisibility(View.GONE);
+                            btInviteUsers.setVisibility(View.GONE);
                         }
                     }
 

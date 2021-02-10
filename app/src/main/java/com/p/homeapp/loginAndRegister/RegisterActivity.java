@@ -78,7 +78,6 @@ public class RegisterActivity extends AppCompatActivity {
             User user = new User();
             user.setLogin(login);
             user.setEmail(email);
-            user.setCreateDate(LocalDateTime.now());
 
             if (accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user)) {
                 registerUser(user, password);

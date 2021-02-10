@@ -1,6 +1,5 @@
 package com.p.homeapp.views.groupView.dialogs;
 
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
+import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Invitation;
 import com.p.homeapp.entities.User;
 
@@ -33,6 +33,7 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
     private Context mContext;
     private User userToInvite;
     private String usernameToFind;
+
 
     public GroupMenuDialog(String groupId, Context mContext) {
         this.groupId = groupId;
@@ -59,7 +60,6 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         usernameToFind = eTxtFindUsername.getText().toString();
-
                         sendInvite(usernameToFind);
                     }
                 });
@@ -71,12 +71,17 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean flag = true;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
                     if (user.getLogin().toLowerCase().equals(usernameToFind.toLowerCase())) {
                         userToInvite = dataSnapshot.getValue(User.class);
-                        saveInvitation(userToInvite);
+                        checkUserIsAlreadyInvited();
+                        flag = false;
                     }
+                }
+                if (flag) {
+                    Toast.makeText(mContext, "User does't exist", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -87,23 +92,71 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         });
     }
 
-    private void saveInvitation(User userToInvite) {
-        Invitation invitation = new Invitation();
+    private void checkUserIsAlreadyInvited() {
+
+        FirebaseDatabase.getInstance().getReference().child("invitations").child(userToInvite.getId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean flag = true;
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Invitation invitationForCheck = dataSnapshot.getValue(Invitation.class);
+                            if (invitationForCheck.getGroupId().equals(groupId)) {
+                                flag = false;
+                                Toast.makeText(mContext, "User is already invite", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        if (flag) {
+                            checkUserIsAlreadyGroupMember();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
+    private void checkUserIsAlreadyGroupMember() {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Group group = snapshot.getValue(Group.class);
+                        if (group.getMembersId().contains(userToInvite.getId())) {
+                            Toast.makeText(mContext, "User is already group member", Toast.LENGTH_SHORT).show();
+                        } else {
+                            saveInvitation();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
+
+    private void saveInvitation() {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().
                 child("invitations").child(userToInvite.getId());
 
+        Invitation invitation = new Invitation();
         String invitationId = reference.push().getKey();
 
         invitation.setId(invitationId);
         invitation.setGroupId(groupId);
         invitation.setInvitationSender(FirebaseAuth.getInstance().getCurrentUser().getUid());
         invitation.setAccepted(false);
-
         reference.child(invitationId).setValue(invitation).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(mContext, "Invitation was send", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mContext, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -112,3 +165,4 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         });
     }
 }
+

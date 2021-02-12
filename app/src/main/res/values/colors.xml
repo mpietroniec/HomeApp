@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#007FFF</color>
+    <color name="colorPrimary">#85ba6a</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorNavyGreen">#35530a</color>
@@ -8,4 +8,9 @@
     <color name="colorBasicText">#000000</color>
     <color name="mainColor">#0300FD</color>
 <!--  błękit Thénarda  -->
+    <color name="mainGreen">#85ba6a</color>
+    <color name="mainDarkGreen">#0b2e2f</color>
+<!--    <color name="mainRed">#cc2c11</color>-->
+    <color name="mainLightGrey">#c1aa94</color>
+    <color name="mainBlack">#000000</color>
 </resources>

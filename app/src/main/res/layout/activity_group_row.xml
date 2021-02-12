@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/group"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/group_name_txt"
             android:text="@string/group_description"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="italic"/>
 

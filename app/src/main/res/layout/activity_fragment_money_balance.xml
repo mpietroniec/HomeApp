@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_alignParentBottom="true"
-        android:background="#D3D3D3">
+        android:background="@color/mainLightGrey">
 
         <TextView
             android:id="@+id/balance_txt"
@@ -36,24 +36,27 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="Balance: "
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/balance_txt"
             android:padding="2dp"
-            android:textSize="18sp"
             android:text="-"
-            android:layout_toEndOf="@+id/balance_txt"/>
+            android:textColor="@color/mainDarkGreen"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/balance_txt"
-            android:text="Details"
             android:clickable="true"
             android:focusable="true"
             android:padding="2dp"
+            android:text="Details"
+            android:textColor="@color/mainDarkGreen"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_right_26" />
 
     </RelativeLayout>

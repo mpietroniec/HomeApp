@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Money balance"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="Date"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:text="Amount"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="28sp"
             android:textStyle="bold" />
 

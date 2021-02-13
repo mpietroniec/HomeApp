@@ -10,12 +10,13 @@
     <EditText
         android:id="@+id/id_task_name_etxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:autofillHints="@string/task_name"
-        android:backgroundTint="@color/colorBasicText"
+        android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/ic_baseline_add_task_26"
-        android:drawablePadding="10dp"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
         android:hint="@string/task_name"
         android:inputType="text"
         android:maxLines="1"
@@ -31,7 +32,8 @@
         android:layout_marginTop="20dp"
         android:autofillHints="@string/task_date"
         android:backgroundTint="@color/colorBasicText"
-        android:drawablePadding="10dp"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
         android:gravity="center_vertical"
         android:hint="@string/task_date"
         android:maxLines="1"
@@ -73,7 +75,7 @@
         android:layout_marginTop="20dp" />
 
     <TextView
-        android:id="@+id/id_task_owner_txt"
+        android:id="@+id/txt_task_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/id_task_type_spinner"
@@ -99,14 +101,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/id_save_task_btn"
-        android:layout_below="@id/id_task_owner_txt"
+        android:layout_below="@id/txt_task_owner"
         android:layout_marginTop="10dp"
         android:background="@drawable/activity_add_custom" />
 
     <Button
         android:id="@+id/id_save_task_btn"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
+        android:textSize="18sp"
+        android:textColor="@color/mainDarkGreen"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"

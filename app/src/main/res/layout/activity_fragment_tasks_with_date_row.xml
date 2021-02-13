@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/task_name"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/id_task_date_name_txt"
             android:text="@string/deadline"
-            android:textColor="@color/colorBasicText"
+            android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="italic" />
 

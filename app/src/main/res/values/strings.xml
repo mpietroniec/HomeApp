@@ -5,9 +5,9 @@
     <string name="confirmPassword">Powtórz Hasło</string>
     <string name="log_in">Zaloguj</string>
     <string name="not_registered">Nie masz konta?</string>
-    <string name="register">ZAREJESTRUJ SIĘ</string>
+    <string name="register">Register</string>
     <string name="forgotten_password">Nie pamiętasz hasła?</string>
-    <string name="remind_password">PRZYPOMNIJ HASŁO</string>
+    <string name="remind_password">Remind password</string>
     <string name="login">Login</string>
     <string name="e_mail">E-mail</string>
     <string name="account">Posiadasz konto?</string>

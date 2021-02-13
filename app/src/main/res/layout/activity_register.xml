@@ -5,69 +5,100 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".loginAndRegister.RegisterActivity">
 
     <EditText
         android:id="@+id/etxt_login"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="160dp"
         android:autofillHints="@string/login"
-        android:drawableStart="@drawable/ic_baseline_person_26"
-        android:gravity="center_horizontal"
+        android:background="@drawable/custom_edit_text"
+        android:drawableStart="@drawable/custom_person_icon"
+        android:drawablePadding="12dp"
         android:hint="@string/login"
-        android:inputType="text" />
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etxt_email"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:autofillHints="@string/e_mail"
-        android:drawableStart="@drawable/ic_baseline_mail_26"
-        android:gravity="center_horizontal"
+        android:background="@drawable/custom_edit_text"
+        android:drawableStart="@drawable/custom_mail_icon"
+        android:drawablePadding="12dp"
         android:hint="@string/e_mail"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etxt_password"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:autofillHints="@string/password"
+        android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/ic_baseline_lock_26"
-        android:gravity="center_horizontal"
+        android:drawablePadding="12dp"
         android:hint="@string/password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/etxt_confirmPassword"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:autofillHints="@string/password"
-        android:drawableStart="@drawable/ic_baseline_lock_26"
-        android:gravity="center_horizontal"
+        android:background="@drawable/custom_edit_text"
+        android:drawableStart="@drawable/custom_lock_icon"
+        android:drawablePadding="12dp"
         android:hint="@string/confirmPassword"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:text="@string/register" />
+        android:background="@drawable/custom_button"
+        android:backgroundTint="@null"
+        android:text="@string/register"
+        android:textColor="@color/mainDarkGreen"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:text="@string/account" />
+            android:text="@string/account"
+            android:textColor="@color/mainLightGrey"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txt_signIn"
@@ -77,6 +108,8 @@
             android:focusable="true"
             android:paddingStart="10dp"
             android:text="@string/log_in_btn"
+            android:textColor="@color/mainGreen"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:ignore="RtlSymmetry" />
 

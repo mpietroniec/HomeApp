@@ -10,39 +10,47 @@
     <EditText
         android:id="@+id/group_name_etxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:autofillHints="@string/group_name"
-        android:backgroundTint="@color/colorBasicText"
-        android:drawableStart="@drawable/ic_baseline_group_26"
-        android:drawablePadding="10dp"
+        android:background="@drawable/custom_edit_text"
+        android:drawableStart="@drawable/custom_group_icon"
+        android:drawablePadding="12dp"
         android:hint="@string/group_name"
         android:inputType="text"
         android:maxLines="1"
+        android:paddingStart="12dp"
         android:textColor="@color/colorBasicText"
-        android:textStyle="italic" />
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/group_description_etxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_below="@id/group_name_etxt"
         android:layout_marginTop="50dp"
         android:autofillHints="@string/group_description"
-        android:backgroundTint="@color/colorBasicText"
-        android:drawableStart="@drawable/ic_baseline_short_text_26"
-        android:drawablePadding="10dp"
+        android:background="@drawable/custom_edit_text"
+        android:drawableStart="@drawable/custom_short_text_icon"
+        android:drawablePadding="12dp"
         android:hint="@string/group_description"
         android:inputType="text"
+        android:paddingStart="12dp"
         android:textColor="@color/colorBasicText"
-        android:textStyle="italic" />
+        android:textCursorDrawable="@null"
+        android:textStyle="italic"
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/save_group_btn"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/save" />
+        android:text="@string/save"
+        android:textColor="@color/mainDarkGreen"
+        android:textSize="18sp" />
 
 </RelativeLayout>

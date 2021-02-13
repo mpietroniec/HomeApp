@@ -41,5 +41,8 @@
     <string name="group_name">Nazwa grupy</string>
     <string name="group_description">Opis grupy</string>
     <string name="e_mail">E-mail</string>
+    <string name="login">Zaloguj się</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="password">Hasło</string>
 </resources>
 

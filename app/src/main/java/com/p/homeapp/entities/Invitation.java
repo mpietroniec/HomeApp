@@ -15,6 +15,5 @@ public class Invitation {
     private String id;
     private String groupId;
     private String invitationSender;
-    private boolean isAccepted;
 
 }

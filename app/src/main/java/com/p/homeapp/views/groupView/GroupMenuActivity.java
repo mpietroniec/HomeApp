@@ -63,6 +63,16 @@ public class GroupMenuActivity extends AppCompatActivity {
             }
         });
 
+        btEditGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
+                intentEditGroup.putExtra("groupId", group.getId());
+                startActivity(intentEditGroup);
+                finish();
+            }
+        });
+
 
     }
 

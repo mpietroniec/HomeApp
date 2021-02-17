@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.groupView.EditGroupActivity"
+            android:parentActivityName=".views.groupView.GroupMenuActivity"/>
         <activity
             android:name=".views.invitation.InvitationMenuActivity"
-            android:parentActivityName=".views.mainView.FragmentActivity"/>
+            android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.groupView.GroupMenuActivity"
             android:parentActivityName=".views.groupView.GroupActivity" />

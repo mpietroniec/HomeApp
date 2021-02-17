@@ -31,6 +31,7 @@
         android:layout_height="60dp"
         android:layout_below="@id/etxt_group_name"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:autofillHints="@string/group_description"
         android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/custom_short_text_icon"
@@ -43,12 +44,35 @@
         android:textStyle="italic"
         tools:ignore="RtlSymmetry" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_save_group"
+        android:id="@+id/txt_title_members"
+        android:text="Members"
+        android:textStyle="bold"
+        android:textColor="@color/colorBasicText"
+        android:textSize="20sp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_title_members"
+        android:padding="12dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_members_name"/>
+
+    </ScrollView>
+
     <Button
         android:id="@+id/btn_save_group"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/etxt_group_description"
         android:text="@string/save"
         android:textColor="@color/mainDarkGreen"
         android:textSize="18sp" />

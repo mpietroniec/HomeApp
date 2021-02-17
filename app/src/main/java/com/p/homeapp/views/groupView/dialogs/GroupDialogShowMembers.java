@@ -77,7 +77,8 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Group currentGroup = snapshot.getValue(Group.class);
 
-                        FirebaseDatabase.getInstance().getReference().child("users").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("users")
+                                .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (String memberId : currentGroup.getMembersId()) {

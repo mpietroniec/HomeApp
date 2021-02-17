@@ -1,11 +1,14 @@
 package com.p.homeapp.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -76,6 +79,85 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
 
                     }
                 });
+
+        holder.ivReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createRejectDialog(invitation);
+
+            }
+        });
+
+        holder.ivAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAcceptDialog(invitation);
+            }
+        });
+    }
+
+    private void createAcceptDialog(Invitation invitation) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.setTitle("Are you sure to accept this invitation?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseDatabase.getInstance().getReference().child("groups").child(invitation.getGroupId())
+                        .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        Group group = task.getResult().getValue(Group.class);
+                        List<String> membersId = group.getMembersId();
+                        membersId.add(firebaseUser.getUid());
+                        group.setMembersId(membersId);
+                        FirebaseDatabase.getInstance().getReference().child("groups")
+                                .child(invitation.getGroupId()).setValue(group);
+                        FirebaseDatabase.getInstance().getReference().child("invitations")
+                                .child(firebaseUser.getUid()).child(invitation.getId()).removeValue().
+                                addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(mContext, "Invitation was accepted", Toast.LENGTH_SHORT).show();
+                                alertDialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void createRejectDialog(Invitation invitation) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+        alertDialog.setTitle("Are you sure to reject invitation for this group?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                FirebaseDatabase.getInstance().getReference().child("invitations")
+                        .child(firebaseUser.getUid()).child(invitation.getId()).removeValue()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(mContext, "Invitation was reject", Toast.LENGTH_SHORT).show();
+                                dialogInterface.dismiss();
+                            }
+                        });
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
@@ -86,15 +168,16 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
     public class InvitationViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtGroupName, txtInvitationSender;
-        private Button btnAccept, btnReject;
+        private ImageView ivAccept, ivReject;
 
         public InvitationViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtGroupName = itemView.findViewById(R.id.txt_group_name);
             txtInvitationSender = itemView.findViewById(R.id.txt_invitation_sender);
-            btnAccept = itemView.findViewById(R.id.btn_accept);
-            btnReject = itemView.findViewById(R.id.btn_reject);
+            ivAccept = itemView.findViewById(R.id.iv_accept);
+            ivReject = itemView.findViewById(R.id.iv_reject);
         }
     }
+
 }

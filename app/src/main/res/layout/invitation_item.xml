@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:orientation="vertical">
 
             <TextView
@@ -22,6 +22,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:maxLines="1"
+                android:maxWidth="250dp"
                 android:text="Group Name"
                 android:textColor="@color/mainLightGrey"
                 android:textStyle="bold" />
@@ -37,28 +38,35 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_gravity="center">
 
-            <Button
-                android:id="@+id/btn_accept"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:text="Accept" />
 
-            <Button
-                android:id="@+id/btn_reject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reject" />
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true"
+                android:padding="10dp">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/iv_accept"
+                    android:src="@drawable/ic_check_green"
+                    android:layout_marginRight="20dp"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/iv_reject"
+                    android:src="@drawable/ic_cancel_red"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

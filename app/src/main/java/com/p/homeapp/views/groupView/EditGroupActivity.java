@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,11 +25,14 @@ import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class EditGroupActivity extends AppCompatActivity {
 
     private EditText eTxtGroupName, eTxtGroupDescription;
+    private Button btnSaveGroup;
     private RecyclerView rvMembersName;
     private UserAdapterWithThrowAway userAdapterWithThrowAway;
     private List<User> membersList;
@@ -40,20 +46,22 @@ public class EditGroupActivity extends AppCompatActivity {
 
         eTxtGroupName = findViewById(R.id.etxt_group_name);
         eTxtGroupDescription = findViewById(R.id.etxt_group_description);
+        btnSaveGroup = findViewById(R.id.btn_save_group);
         rvMembersName = findViewById(R.id.rv_members_name);
-
-        membersList = new ArrayList<>();
-        userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList);
-        rvMembersName.setHasFixedSize(true);
-        rvMembersName.setLayoutManager(new LinearLayoutManager(this));
-        rvMembersName.setAdapter(userAdapterWithThrowAway);
 
         Intent intent = getIntent();
         String groupId = intent.getStringExtra("groupId");
 
+        membersList = new ArrayList<>();
+        userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList, groupId);
+        rvMembersName.setHasFixedSize(true);
+        rvMembersName.setLayoutManager(new LinearLayoutManager(this));
+        rvMembersName.setAdapter(userAdapterWithThrowAway);
+
         FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 membersList.clear();
                 Group group = snapshot.getValue(Group.class);
                 eTxtGroupName.setText(group.getName());
@@ -67,7 +75,6 @@ public class EditGroupActivity extends AppCompatActivity {
                                 membersList.add(user);
                             }
                         }
-                        System.out.println("Użytkownicy: " + membersList.toString());
                         userAdapterWithThrowAway.notifyDataSetChanged();
                     }
                 });
@@ -79,5 +86,25 @@ public class EditGroupActivity extends AppCompatActivity {
             }
         });
 
+        btnSaveGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateGroup(groupId);
+            }
+        });
+
+    }
+
+    private void updateGroup(String groupId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", eTxtGroupName.getText().toString());
+        map.put("description", eTxtGroupDescription.getText().toString());
+
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(EditGroupActivity.this, "Group successfully updated", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

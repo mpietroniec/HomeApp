@@ -44,15 +44,25 @@
         android:textStyle="italic"
         tools:ignore="RtlSymmetry" />
 
+    <Button
+        android:id="@+id/btn_save_group"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@+id/etxt_group_description"
+        android:layout_alignParentEnd="true"
+        android:text="@string/save"
+        android:textColor="@color/mainDarkGreen"
+        android:textSize="18sp" />
+
     <TextView
+        android:id="@+id/txt_title_members"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_save_group"
-        android:id="@+id/txt_title_members"
         android:text="Members"
-        android:textStyle="bold"
         android:textColor="@color/colorBasicText"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -61,20 +71,11 @@
         android:padding="12dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_members_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_members_name"/>
+            android:layout_height="wrap_content" />
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_save_group"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/etxt_group_description"
-        android:text="@string/save"
-        android:textColor="@color/mainDarkGreen"
-        android:textSize="18sp" />
 
 </RelativeLayout>

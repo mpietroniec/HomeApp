@@ -16,7 +16,7 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/group_name_txt"
+            android:id="@+id/txt_group_name_in_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/group"
@@ -25,10 +25,10 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/group_description_txt"
+            android:id="@+id/txt_group_description_in_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/group_name_txt"
+            android:layout_below="@+id/txt_group_name_in_row"
             android:text="@string/group_description"
             android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"

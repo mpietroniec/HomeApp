@@ -14,7 +14,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -42,12 +41,12 @@ public class GroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group);
 
         mGroups = new ArrayList<>();
-        rvGroup = findViewById(R.id.group_recyclerView);
+        rvGroup = findViewById(R.id.rv_group);
         groupAdapter = new GroupAdapter(getBaseContext(), mGroups);
 
-        floatingBtnAddGroup = findViewById(R.id.add_group_button);
-        floatingBtnCreateGroup = findViewById(R.id.create_group);
-        floatingBtnJoinToGroup = findViewById(R.id.join_to_group);
+        floatingBtnAddGroup = findViewById(R.id.btn_add_group);
+        floatingBtnCreateGroup = findViewById(R.id.btn_create_group);
+        floatingBtnJoinToGroup = findViewById(R.id.btn_join_to_group);
 
         rvGroup.setHasFixedSize(true);
         rvGroup.setLayoutManager(new LinearLayoutManager(this));

@@ -10,12 +10,12 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_user_name"
             android:maxLines="1"
             android:textColor="@color/mainLightGrey"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

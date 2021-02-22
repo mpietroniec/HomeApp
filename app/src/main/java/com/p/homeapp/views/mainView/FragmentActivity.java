@@ -31,7 +31,6 @@ public class FragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.id_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_container, new FragmentTasks()).commit();
@@ -44,8 +43,6 @@ public class FragmentActivity extends AppCompatActivity {
         toggle.syncState();
     }
 
-
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -54,7 +51,6 @@ public class FragmentActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,7 +75,6 @@ public class FragmentActivity extends AppCompatActivity {
                 return true;
             };
 
-
     public void logout(MenuItem item) {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(FragmentActivity.this, R.string.logged_out, Toast.LENGTH_SHORT).show();
@@ -91,13 +86,11 @@ public class FragmentActivity extends AppCompatActivity {
         Intent intent = new Intent(FragmentActivity.this, GroupActivity.class);
         startActivityForResult(intent,1);
         drawerLayout.closeDrawers();
-        finish();
     }
 
     public void startInvitationActivity(MenuItem item){
         Intent intent = new Intent(FragmentActivity.this, InvitationMenuActivity.class);
         startActivity(intent);
-        finish();
+        drawerLayout.closeDrawers();
     }
 }
-

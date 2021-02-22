@@ -6,6 +6,4 @@
     android:textStyle="italic"
     android:textColor="@color/colorBasicText">
 
-
-
 </TextView>

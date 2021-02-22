@@ -3,8 +3,6 @@ package com.p.homeapp.views.addingSettlementViews;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.p.homeapp.R;
 
@@ -14,6 +12,6 @@ public class AddSettlementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_settlement);
-        getSupportFragmentManager().beginTransaction().replace(R.id.id_task_owners_container,new FragmentAddSettlement()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_add_task_owners,new FragmentAddSettlement()).commit();
     }
 }

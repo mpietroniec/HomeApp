@@ -22,7 +22,7 @@
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/id_task_owner_add"
+            android:id="@+id/chbox_task_owner_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

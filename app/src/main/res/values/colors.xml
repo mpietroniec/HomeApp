@@ -10,7 +10,7 @@
 <!--  błękit Thénarda  -->
     <color name="mainGreen">#85ba6a</color>
     <color name="mainDarkGreen">#0b2e2f</color>
-<!--    <color name="mainRed">#cc2c11</color>-->
+    <color name="mainRed">#cc2c11</color>
     <color name="mainLightGrey">#c1aa94</color>
     <color name="mainBlack">#000000</color>
 </resources>

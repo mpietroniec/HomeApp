@@ -6,18 +6,19 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 
 import com.google.firebase.database.DatabaseReference;
@@ -32,13 +33,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class AddTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private EditText eTxtTaskName;
-    private TextView eTxtTaskDeadline;
-    private Spinner spinnerTaskType;
+    private TextView txtTaskDeadline;
+    private ImageView ivDeleteDate;
+    private Spinner spinTaskType;
     private CheckBox chBoxTaskNotification;
-    private Button saveTaskButton;
+    private Button saveTaskBtn;
+
+    private LinearLayout llAddNotification;
 
     private DatabaseReference mRootRef;
 
@@ -47,30 +51,56 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        Spinner spinner = (Spinner) findViewById(R.id.id_task_type_spinner);
+        Spinner spinner =  findViewById(R.id.spin_task_type);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tasks_types, R.layout.activity_add_task_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        eTxtTaskName = findViewById(R.id.id_task_name_etxt);
-        eTxtTaskDeadline = findViewById(R.id.id_task_deadline_txt);
-        spinnerTaskType = (Spinner) findViewById(R.id.id_task_type_spinner);
-        chBoxTaskNotification = findViewById(R.id.id_task_notification_checkbox);
-        saveTaskButton = findViewById(R.id.id_save_task_btn);
-
-        mRootRef = FirebaseDatabase.getInstance().getReference("tasks");
-
-        eTxtTaskDeadline.setOnClickListener(v -> {
+        eTxtTaskName = findViewById(R.id.etxt_task_name);
+        txtTaskDeadline = findViewById(R.id.txt_task_deadline);
+        txtTaskDeadline.setOnClickListener(v -> {
             DialogFragment datePicker = new DatePickerFragment();
             datePicker.show(getSupportFragmentManager(), "date picker");
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.id_task_owners_container, new FragmentAddTask()).commit();
+        llAddNotification = findViewById(R.id.ll_add_notification);
+        txtTaskDeadline.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        saveTaskButton.setOnClickListener(v -> {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                llAddNotification.setVisibility(View.VISIBLE);
+                ivDeleteDate.setVisibility(View.VISIBLE);
+            }
+        });
+
+        ivDeleteDate = findViewById(R.id.iv_delete_date);
+        ivDeleteDate.setOnClickListener(v -> {
+            txtTaskDeadline.setText("");
+            llAddNotification.setVisibility(View.GONE);
+            ivDeleteDate.setVisibility(View.GONE);
+        });
+
+        spinTaskType = findViewById(R.id.spin_task_type);
+        chBoxTaskNotification = findViewById(R.id.chbox_task_notification);
+        saveTaskBtn = findViewById(R.id.btn_save_task);
+
+        mRootRef = FirebaseDatabase.getInstance().getReference("tasks");
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_add_task_owners, new FragmentAddTask()).commit();
+
+        saveTaskBtn.setOnClickListener(v -> {
             String taskName = eTxtTaskName.getText().toString();
-            String taskType = spinnerTaskType.getSelectedItem().toString();
-            String taskDeadline = eTxtTaskDeadline.getText().toString();
+            String taskType = spinTaskType.getSelectedItem().toString();
+            String taskDeadline = txtTaskDeadline.getText().toString();
             boolean taskNotification = chBoxTaskNotification.isChecked();
 
             String taskId = mRootRef.push().getKey();
@@ -89,7 +119,7 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        TextView textView = (TextView) findViewById(R.id.id_task_deadline_txt);
+        TextView textView = findViewById(R.id.txt_task_deadline);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -111,12 +141,5 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         finish();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
 }

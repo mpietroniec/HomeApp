@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.p.homeapp.ItemClickListener;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.views.groupView.GroupMenuActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
@@ -47,8 +43,8 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Group group = mGroups.get(position);
-        holder.txtGroupName.setText(group.getName());
-        holder.txtGroupDescription.setText(group.getDescription());
+        holder.groupName.setText(group.getName());
+        holder.groupDescription.setText(group.getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,17 +62,16 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return mGroups.size();
     }
 
-
     public class GroupViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView txtGroupName, txtGroupDescription;
+        private TextView groupName, groupDescription;
         CardView reviewLayoutGroup;
 
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtGroupName = itemView.findViewById(R.id.group_name_txt);
-            txtGroupDescription = itemView.findViewById(R.id.group_description_txt);
+            groupName = itemView.findViewById(R.id.txt_group_name_in_row);
+            groupDescription = itemView.findViewById(R.id.txt_group_description_in_row);
             reviewLayoutGroup = itemView.findViewById(R.id.group_review_layout);
         }
     }

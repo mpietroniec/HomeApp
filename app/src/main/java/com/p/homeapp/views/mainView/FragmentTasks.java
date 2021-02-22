@@ -43,7 +43,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
         // return inflater.inflate(R.layout.activity_fragment_review, container, false);
         View view = inflater.inflate(R.layout.activity_fragment_tasks_review, container, false);
         mRecyclerView = view.findViewById(R.id.tasks_recyclerView);
-        addTaskButton = view.findViewById(R.id.id_add_button);
+        addTaskButton = view.findViewById(R.id.btn_add_task);
         addTaskButton.setOnClickListener(v -> {
             // UWAGA UWAGA UWAGA zamienione klasy
             Intent intent = new Intent(getContext(), AddTaskActivity.class);

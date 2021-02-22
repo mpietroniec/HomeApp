@@ -7,7 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtRegister;
     EditText eTxtEmail, eTxtPassword;
     Button btnLogin;
+    CheckBox checkRemember;
 
     FirebaseAuth mAuth;
 
@@ -38,14 +42,21 @@ public class LoginActivity extends AppCompatActivity {
         eTxtEmail = findViewById(R.id.etxt_email);
         eTxtPassword = findViewById(R.id.etxt_password);
         btnLogin = findViewById(R.id.btn_login);
+        checkRemember = findViewById(R.id.remember_user);
 
         mAuth = FirebaseAuth.getInstance();
-
 
         txtRegister.setOnClickListener(v -> {
             Intent RegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(RegisterIntent);
         });
+
+        if(checkRemember.isChecked()){
+            String email = eTxtEmail.getText().toString();
+            String password = eTxtPassword.getText().toString();
+            SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBER_ME);
+            sessionManager.createRememberMeSession(email,password);
+        }
 
         btnLogin.setOnClickListener(v -> {
             String email = eTxtEmail.getText().toString();
@@ -78,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onStart() {

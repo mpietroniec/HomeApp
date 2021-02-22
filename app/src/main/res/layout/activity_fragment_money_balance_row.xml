@@ -6,7 +6,7 @@
     android:layout_rowWeight="1"
     android:layout_column="0"
     android:layout_columnWeight="1"
-    android:layout_margin="8dp"
+    android:layout_marginBottom="1dp"
     android:elevation="8dp">
 
     <RelativeLayout
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Money balance"
+            android:textStyle="bold"
             android:textColor="@color/mainDarkGreen"
             android:textSize="18sp" />
 
@@ -31,7 +32,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="Date"
-            android:textColor="@color/mainDarkGreen"
+            android:textColor="@color/mainLightGrey"
             android:textSize="18sp"
             android:textStyle="italic" />
 
@@ -44,8 +45,7 @@
             android:layout_marginEnd="20dp"
             android:text="Amount"
             android:textColor="@color/mainDarkGreen"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:textSize="28sp" />
 
     </RelativeLayout>
 

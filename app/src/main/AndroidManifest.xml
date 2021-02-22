@@ -40,7 +40,8 @@
             android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.mainView.FragmentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

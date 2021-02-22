@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,8 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
-
-import java.time.LocalDateTime;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -50,10 +47,10 @@ public class RegisterActivity extends AppCompatActivity {
         eTxtLogin = findViewById(R.id.etxt_login);
         eTxtEmail = findViewById(R.id.etxt_email);
         eTxtPassword = findViewById(R.id.etxt_password);
-        eTxtConfirmPassword = findViewById(R.id.etxt_confirmPassword);
+        eTxtConfirmPassword = findViewById(R.id.etxt_confirm_password);
 
         btnRegister = findViewById(R.id.btn_register);
-        txtLogin = findViewById(R.id.txt_signIn);
+        txtLogin = findViewById(R.id.txt_sign_in);
 
         accountDataValidator = new AccountDataValidator();
 

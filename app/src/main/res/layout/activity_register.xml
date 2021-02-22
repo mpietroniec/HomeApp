@@ -60,7 +60,7 @@
         tools:ignore="RtlSymmetry" />
 
     <EditText
-        android:id="@+id/etxt_confirmPassword"
+        android:id="@+id/etxt_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
@@ -101,7 +101,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/txt_signIn"
+            android:id="@+id/txt_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:clickable="true"

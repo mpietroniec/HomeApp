@@ -37,8 +37,8 @@ public class FragmentMoneyBalance extends Fragment implements ItemClickListener 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment_money_balance, container, false);
-        mRecyclerView = view.findViewById(R.id.money_balance_recyclerView);
-        addExpenditureButton = view.findViewById(R.id.id_add_button);
+        mRecyclerView = view.findViewById(R.id.rv_money_balance);
+        addExpenditureButton = view.findViewById(R.id.btn_add_task);
         addExpenditureButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), AddSettlementActivity.class);
             startActivity(intent);

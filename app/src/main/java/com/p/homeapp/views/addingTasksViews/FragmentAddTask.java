@@ -34,7 +34,7 @@ public class FragmentAddTask extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment_group_members, container, false);
 
-        mRecyclerView = view.findViewById(R.id.id_group_members_recyclerView);
+        mRecyclerView = view.findViewById(R.id.rv_group_members);
         initRecyclerView();
         insertFakeOwners();
         return view;

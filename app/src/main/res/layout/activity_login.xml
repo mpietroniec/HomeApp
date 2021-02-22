@@ -21,8 +21,8 @@
         android:hint="@string/e_mail"
         android:inputType="text|textEmailAddress"
         android:paddingStart="12dp"
-        android:textStyle="italic"
         android:textCursorDrawable="@null"
+        android:textStyle="italic"
         tools:ignore="RtlSymmetry" />
 
     <EditText
@@ -38,9 +38,37 @@
         android:inputType="textPassword"
         android:maxLines="1"
         android:paddingStart="12dp"
-        android:textStyle="italic"
         android:textCursorDrawable="@null"
+        android:textStyle="italic"
         tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/remember_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/checkbox_selector"
+
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:text="Remember me"
+            android:textColor="@color/mainLightGrey"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_login"
@@ -50,7 +78,7 @@
         android:background="@drawable/custom_button"
         android:text="@string/log_in"
         android:textColor="@color/mainDarkGreen"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

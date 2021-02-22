@@ -3,7 +3,6 @@ package com.p.homeapp.views.groupView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,10 +43,10 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         txtGroupName = findViewById(R.id.txt_group_name);
         txtGroupDescription = findViewById(R.id.txt_group_description);
-        btEditGroup = findViewById(R.id.bt_edit_group);
-        btInviteUsers = findViewById(R.id.bt_invite_users);
-        btShowMembers = findViewById(R.id.bt_show_members);
-        btLeaveGroup = findViewById(R.id.bt_leave_group);
+        btEditGroup = findViewById(R.id.btn_edit_group);
+        btInviteUsers = findViewById(R.id.btn_invite_users);
+        btShowMembers = findViewById(R.id.btn_show_members);
+        btLeaveGroup = findViewById(R.id.btn_leave_group);
 
         Intent intent = getIntent();
         groupId = intent.getStringExtra("groupId");

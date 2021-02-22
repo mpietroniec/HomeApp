@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_row="0"
-    android:layout_column="0"
     android:layout_rowWeight="1"
+    android:layout_column="0"
     android:layout_columnWeight="1"
-    android:layout_margin="8dp"
+    android:layout_marginBottom="1dp"
     android:elevation="8dp">
 
     <RelativeLayout
@@ -17,7 +17,7 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/id_task_no_date_name_txt"
+            android:id="@+id/txt_task_no_date_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -27,7 +27,7 @@
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/id_task_no_date_done_btn"
+            android:id="@+id/chbox_task_no_date_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -39,24 +39,24 @@
             android:scaleY="0.7" />
 
         <ImageView
-            android:id="@+id/id_task_no_date_type_img"
+            android:id="@+id/iv_task_no_date_type"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:layout_toStartOf="@+id/id_task_no_date_done_btn" />
+            android:layout_toStartOf="@+id/chbox_task_no_date_done" />
 
         <RelativeLayout
-            android:id="@+id/id_task_no_date_expanded_row"
+            android:id="@+id/expanded_row_task_no_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/id_task_no_date_name_txt"
+            android:layout_below="@+id/txt_task_no_date_name"
             android:layout_marginTop="20dp"
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/id_task_without_date_update_txt_btn"
+                android:id="@+id/btn_task_without_date_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -65,11 +65,11 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/id_task_without_date_delete_txt_btn"
+                android:id="@+id/btn_task_without_date_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_toEndOf="@+id/id_task_without_date_update_txt_btn"
+                android:layout_toEndOf="@+id/btn_task_without_date_update"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/delete"

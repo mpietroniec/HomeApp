@@ -27,7 +27,9 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/iv_throw_user_away"
-                android:src="@drawable/ic_cancel_red"
+                android:src="@drawable/ic_baseline_delete_26"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>

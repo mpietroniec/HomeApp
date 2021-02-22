@@ -6,7 +6,7 @@
     tools:context=".views.mainView.FragmentTasks">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/id_add_button"
+        android:id="@+id/btn_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

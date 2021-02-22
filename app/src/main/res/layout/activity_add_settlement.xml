@@ -11,7 +11,7 @@
         android:id="@+id/etxt_expenditure_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:autofillHints="@string/task_name"
         android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/custom_add_task_icon"
@@ -42,7 +42,7 @@
         android:textStyle="italic" />
 
     <ImageView
-        android:id="@+id/expenditure_image"
+        android:id="@+id/iv_expenditure_image"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/etxt_expenditure_amount"
@@ -52,20 +52,20 @@
         android:src="@drawable/ic_baseline_photo_camera_26" />
 
     <TextView
-        android:id="@+id/txt_task_owner"
+        android:id="@+id/txt_add_task_owner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/expenditure_image"
+        android:layout_below="@id/iv_expenditure_image"
         android:layout_marginTop="20dp"
         android:text="@string/task_for"
         android:textColor="@color/mainDarkGreen"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/id_select_all_txt"
+        android:id="@+id/txt_add_select_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/expenditure_image"
+        android:layout_below="@+id/iv_expenditure_image"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:text="@string/select_all"
@@ -74,16 +74,16 @@
         app:drawableStartCompat="@drawable/ic_baseline_check_26" />
 
     <FrameLayout
-        android:id="@+id/id_task_owners_container"
+        android:id="@+id/container_add_task_owners"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/id_save_expenditure_btn"
-        android:layout_below="@id/txt_task_owner"
+        android:layout_above="@+id/btn_save_expenditure"
+        android:layout_below="@id/txt_add_task_owner"
         android:layout_marginTop="10dp"
         android:background="@drawable/activity_add_custom" />
 
     <Button
-        android:id="@+id/id_save_expenditure_btn"
+        android:id="@+id/btn_save_expenditure"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"

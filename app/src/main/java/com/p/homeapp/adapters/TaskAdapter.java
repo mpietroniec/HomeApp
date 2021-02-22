@@ -115,12 +115,12 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public TaskWithDateViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
-            taskName = itemView.findViewById(R.id.id_task_date_name_txt);
-            taskDeadline = itemView.findViewById(R.id.id_task_date_date_txt);
-            taskType = itemView.findViewById(R.id.id_task_date_type_img);
+            taskName = itemView.findViewById(R.id.txt_task_date_name);
+            taskDeadline = itemView.findViewById(R.id.txt_task_date_date);
+            taskType = itemView.findViewById(R.id.iv_task_date_type);
             taskReviewLayout = itemView.findViewById(R.id.id_task_date_card);
-            taskExpandableView = itemView.findViewById(R.id.id_task_date_expanded_row);
-            taskUpdate = itemView.findViewById(R.id.id_task_with_date_update_txt_btn);
+            taskExpandableView = itemView.findViewById(R.id.expanded_row_task_date);
+            taskUpdate = itemView.findViewById(R.id.btn_task_with_date_update);
             this.itemClickListener = itemClickListener;
             itemView.setOnClickListener(this);
         }
@@ -140,11 +140,11 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         public TaskWithoutDateViewHolder(@NonNull View itemView, ItemClickListener itemClickListener) {
             super(itemView);
-            taskName = itemView.findViewById(R.id.id_task_no_date_name_txt);
-            taskType = itemView.findViewById(R.id.id_task_no_date_type_img);
+            taskName = itemView.findViewById(R.id.txt_task_no_date_name);
+            taskType = itemView.findViewById(R.id.iv_task_no_date_type);
             taskReviewLayout = itemView.findViewById(R.id.id_task_no_date_card);
-            taskExpandableView = itemView.findViewById(R.id.id_task_no_date_expanded_row);
-            taskUpdate = itemView.findViewById(R.id.id_task_without_date_update_txt_btn);
+            taskExpandableView = itemView.findViewById(R.id.expanded_row_task_no_date);
+            taskUpdate = itemView.findViewById(R.id.btn_task_without_date_update);
             this.itemClickListener = itemClickListener;
             itemView.setOnClickListener(this);
         }

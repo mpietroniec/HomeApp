@@ -41,9 +41,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         User user = mUsers.get(position);
 
         if(user.getId().equals(firebaseUser.getUid())){
-            holder.txtUsername.setText(user.getLogin() + "(Ja)");
+            holder.userName.setText(user.getLogin() + "(Ja)");
         } else {
-            holder.txtUsername.setText(user.getLogin());
+            holder.userName.setText(user.getLogin());
         }
     }
 
@@ -54,12 +54,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtUsername;
+        public TextView userName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            txtUsername = itemView.findViewById(R.id.txt_user_name);
+            userName = itemView.findViewById(R.id.txt_user_name);
         }
     }
 }

@@ -75,6 +75,18 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/bt_leave_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:text="Leave Group"
+                        android:layout_gravity="center"
+                        android:textSize="12sp"
+                        android:visibility="gone"/>
+                    <Button
                         android:id="@+id/bt_show_members"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"

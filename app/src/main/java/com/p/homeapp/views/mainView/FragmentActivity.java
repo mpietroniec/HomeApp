@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 import com.p.homeapp.views.groupView.GroupActivity;
+import com.p.homeapp.views.invitation.InvitationMenuActivity;
 
 public class FragmentActivity extends AppCompatActivity {
 
@@ -29,10 +31,10 @@ public class FragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.id_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_container, new FragmentTasks()).commit();
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,6 +43,8 @@ public class FragmentActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -86,6 +90,13 @@ public class FragmentActivity extends AppCompatActivity {
     public void startGroupActivity(MenuItem item) {
         Intent intent = new Intent(FragmentActivity.this, GroupActivity.class);
         startActivityForResult(intent,1);
+        drawerLayout.closeDrawers();
+        finish();
+    }
+
+    public void startInvitationActivity(MenuItem item){
+        Intent intent = new Intent(FragmentActivity.this, InvitationMenuActivity.class);
+        startActivity(intent);
         finish();
     }
 }

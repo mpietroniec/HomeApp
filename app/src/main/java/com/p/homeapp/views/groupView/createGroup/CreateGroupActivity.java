@@ -31,9 +31,9 @@ public class CreateGroupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_group);
 
-        eTxtGroupName = findViewById(R.id.group_name_etxt);
-        eTxtGroupDescription = findViewById(R.id.group_description_etxt);
-        btSaveGroup = findViewById(R.id.save_group_btn);
+        eTxtGroupName = findViewById(R.id.etxt_group_name);
+        eTxtGroupDescription = findViewById(R.id.etxt_group_description);
+        btSaveGroup = findViewById(R.id.btn_save_group);
 
         mRootRef = FirebaseDatabase.getInstance().getReference("groups");
 

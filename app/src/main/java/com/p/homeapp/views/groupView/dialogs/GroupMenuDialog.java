@@ -65,7 +65,6 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         usernameToFind = eTxtFindUsername.getText().toString();
                         checkUserExist();
-                        //sendInvite(usernameToFind);
                     }
                 });
         return builder.create();

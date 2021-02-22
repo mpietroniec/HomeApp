@@ -9,6 +9,12 @@
             android:title="@string/group"
             android:onClick="startGroupActivity"/>
         <item
+            android:id="@+id/nav_invitation"
+            android:icon="@drawable/ic_invitations"
+            android:title="Invitation"
+            android:onClick="startInvitationActivity"/>
+
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_baseline_person_26"
             android:title="@string/user_profile" />

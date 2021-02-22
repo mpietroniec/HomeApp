@@ -31,6 +31,7 @@
         android:layout_height="60dp"
         android:layout_below="@id/etxt_group_name"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:autofillHints="@string/group_description"
         android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/custom_short_text_icon"
@@ -47,10 +48,34 @@
         android:id="@+id/btn_save_group"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_below="@+id/etxt_group_description"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:text="@string/save"
         android:textColor="@color/mainDarkGreen"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_title_members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_save_group"
+        android:text="Members"
+        android:textColor="@color/colorBasicText"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_title_members"
+        android:padding="12dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_members_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
+
 
 </RelativeLayout>

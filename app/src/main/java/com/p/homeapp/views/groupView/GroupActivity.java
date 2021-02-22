@@ -100,26 +100,4 @@ public class GroupActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void readGroups() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("groups");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mGroups.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Group group = dataSnapshot.getValue(Group.class);
-                    mGroups.add(group);
-                }
-                groupAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-    }
 }

@@ -26,10 +26,18 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_task_date_date"
+            android:id="@+id/txt_task_date_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_task_date_name"
+            android:text="Group Name"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_task_date_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_task_date_group_name"
             android:text="@string/deadline"
             android:textColor="@color/mainLightGrey"
             android:textSize="18sp"
@@ -40,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/checkbox_selector"
             android:button="@null"
@@ -52,7 +61,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
             android:layout_toStartOf="@+id/chbox_task_date_done" />
 

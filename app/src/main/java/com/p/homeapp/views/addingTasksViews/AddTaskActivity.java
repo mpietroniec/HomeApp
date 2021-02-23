@@ -38,7 +38,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     private EditText eTxtTaskName;
     private TextView txtTaskDeadline;
     private ImageView ivDeleteDate;
-    private Spinner spinTaskType;
+    private Spinner spinTaskType, spinTaskGroup;
     private CheckBox chBoxTaskNotification;
     private Button saveTaskBtn;
 
@@ -55,6 +55,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tasks_types, R.layout.activity_add_task_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinTaskGroup = findViewById(R.id.spin_task_group);
 
         eTxtTaskName = findViewById(R.id.etxt_task_name);
         txtTaskDeadline = findViewById(R.id.txt_task_deadline);

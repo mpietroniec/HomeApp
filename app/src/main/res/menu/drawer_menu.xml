@@ -10,7 +10,7 @@
             android:onClick="startGroupActivity"/>
         <item
             android:id="@+id/nav_invitation"
-            android:icon="@drawable/ic_invitations"
+            android:icon="@drawable/ic_baseline_mail_26"
             android:title="Invitation"
             android:onClick="startInvitationActivity"/>
 

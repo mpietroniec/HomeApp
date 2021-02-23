@@ -78,25 +78,26 @@
                         android:id="@+id/btn_leave_group"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:padding="5dp"
-                        android:paddingEnd="20dp"
                         android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
                         android:text="Leave Group"
-                        android:layout_gravity="center"
                         android:textSize="12sp"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
+
                     <Button
                         android:id="@+id/btn_show_members"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:padding="5dp"
-                        android:paddingEnd="20dp"
                         android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
                         android:text="Show Members"
-                        android:layout_gravity="center"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -104,5 +105,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_task_from_group_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="25dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_baseline_add_45"/>
 
 </RelativeLayout>

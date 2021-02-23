@@ -7,10 +7,19 @@
     android:padding="20dp"
     tools:context=".views.addingTasksViews.AddTaskActivity">
 
+    <Spinner
+        android:id="@+id/spin_task_group"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom_edit_text"
+        android:paddingStart="12dp"/>
+
     <EditText
         android:id="@+id/etxt_task_name"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@+id/spin_task_group"
         android:layout_marginTop="15dp"
         android:autofillHints="@string/task_name"
         android:background="@drawable/custom_edit_text"

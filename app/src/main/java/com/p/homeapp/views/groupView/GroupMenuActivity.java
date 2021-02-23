@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,13 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.Group;
+import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
 import com.p.homeapp.views.groupView.dialogs.GroupDialogShowMembers;
 import com.p.homeapp.views.groupView.dialogs.GroupMenuDialog;
 
 public class GroupMenuActivity extends AppCompatActivity {
 
     private TextView txtGroupName, txtGroupDescription;
-    private Button btEditGroup, btInviteUsers, btShowMembers, btLeaveGroup;
+    private Button btnEditGroup, btnInviteUsers, btnShowMembers, btLeaveGroup;
+    private FloatingActionButton btnAddTaskFromGroupMenu;
 
     private String groupId;
     private Group group;
@@ -43,9 +46,10 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         txtGroupName = findViewById(R.id.txt_group_name);
         txtGroupDescription = findViewById(R.id.txt_group_description);
-        btEditGroup = findViewById(R.id.btn_edit_group);
-        btInviteUsers = findViewById(R.id.btn_invite_users);
-        btShowMembers = findViewById(R.id.btn_show_members);
+        btnEditGroup = findViewById(R.id.btn_edit_group);
+        btnInviteUsers = findViewById(R.id.btn_invite_users);
+        btnShowMembers = findViewById(R.id.btn_show_members);
+        btnAddTaskFromGroupMenu = findViewById(R.id.btn_add_task_from_group_menu);
         btLeaveGroup = findViewById(R.id.btn_leave_group);
 
         Intent intent = getIntent();
@@ -53,38 +57,24 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         getGroup(groupId);
 
-        btInviteUsers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openInvitationDialog();
-            }
+        btnInviteUsers.setOnClickListener(view -> openInvitationDialog());
+
+        btnShowMembers.setOnClickListener(view -> openShowMembersDialog());
+
+        btnEditGroup.setOnClickListener(view -> {
+            Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
+            intentEditGroup.putExtra("groupId", group.getId());
+            startActivity(intentEditGroup);
+            finish();
         });
 
-        btShowMembers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openShowMembersDialog();
-            }
+        btLeaveGroup.setOnClickListener(view -> createLeavingDialog());
+
+        btnAddTaskFromGroupMenu.setOnClickListener(v -> {
+            Intent intentAddTask = new Intent(GroupMenuActivity.this, AddTaskActivity.class);
+            startActivity(intentAddTask);
+            finish();
         });
-
-        btEditGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
-                intentEditGroup.putExtra("groupId", group.getId());
-                startActivity(intentEditGroup);
-                finish();
-            }
-        });
-
-        btLeaveGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createLeavingDialog();
-            }
-        });
-
-
     }
 
     private void createLeavingDialog() {
@@ -137,9 +127,9 @@ public class GroupMenuActivity extends AppCompatActivity {
                         group = snapshot.getValue(Group.class);
                         txtGroupDescription.setText(group.getDescription());
                         txtGroupName.setText(group.getName());
-                        if(!group.getCreatorUserId().equals(firebaseUser.getUid())){
-                            btEditGroup.setVisibility(View.GONE);
-                            btInviteUsers.setVisibility(View.GONE);
+                        if (!group.getCreatorUserId().equals(firebaseUser.getUid())) {
+                            btnEditGroup.setVisibility(View.GONE);
+                            btnInviteUsers.setVisibility(View.GONE);
                             btLeaveGroup.setVisibility(View.VISIBLE);
                         }
                     }

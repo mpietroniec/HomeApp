@@ -20,11 +20,18 @@
             android:id="@+id/txt_task_no_date_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:text="@string/task_name"
             android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_task_no_date_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_task_no_date_name"
+            android:text="Group Name"
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/chbox_task_no_date_done"
@@ -51,8 +58,8 @@
             android:id="@+id/expanded_row_task_no_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_task_no_date_name"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/txt_task_no_date_group_name"
+            android:layout_marginTop="12dp"
             android:visibility="gone">
 
             <TextView

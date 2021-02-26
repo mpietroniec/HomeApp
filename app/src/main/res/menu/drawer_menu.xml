@@ -7,21 +7,25 @@
             android:id="@+id/nav_group"
             android:icon="@drawable/ic_baseline_group_26"
             android:title="@string/group"
-            android:onClick="startGroupActivity"/>
+            android:onClick="startGroupActivity"
+            android:checkable="false"/>
         <item
             android:id="@+id/nav_invitation"
             android:icon="@drawable/ic_baseline_mail_26"
             android:title="Invitation"
-            android:onClick="startInvitationActivity"/>
+            android:onClick="startInvitationActivity"
+            android:checkable="false"/>
 
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_baseline_person_26"
-            android:title="@string/user_profile" />
+            android:title="@string/user_profile"
+            android:checkable="false"/>
         <item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_baseline_log_out_26"
             android:title="@string/logout"
-            android:onClick="logout"/>
+            android:onClick="logout"
+            android:checkable="false"/>
     </group>
 </menu>

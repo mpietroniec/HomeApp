@@ -6,10 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,8 +19,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
+import com.p.homeapp.views.archives.ExpenditureArchivesActivity;
+import com.p.homeapp.views.archives.TaskArchivesActivity;
 import com.p.homeapp.views.groupView.GroupActivity;
 import com.p.homeapp.views.invitation.InvitationMenuActivity;
+
+import java.util.List;
 
 public class FragmentActivity extends AppCompatActivity {
 
@@ -75,6 +79,24 @@ public class FragmentActivity extends AppCompatActivity {
                 return true;
             };
 
+    private Fragment getVisibleFragment(){
+        FragmentManager fragmentManager = FragmentActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for (Fragment fragment : fragments){
+            if(fragment != null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
+    }
+
+    public void startArchivesActivity(MenuItem item){
+        if(getVisibleFragment() instanceof FragmentTasks){
+            startActivity(new Intent(FragmentActivity.this, TaskArchivesActivity.class));
+        } else {
+            startActivity(new Intent(FragmentActivity.this, ExpenditureArchivesActivity.class));
+        }
+    }
+
     public void logout(MenuItem item) {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(FragmentActivity.this, R.string.logged_out, Toast.LENGTH_SHORT).show();
@@ -93,4 +115,7 @@ public class FragmentActivity extends AppCompatActivity {
         startActivity(intent);
         drawerLayout.closeDrawers();
     }
-}
+
+
+
+    }

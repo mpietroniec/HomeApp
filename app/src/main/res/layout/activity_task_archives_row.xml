@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/group_review_layout"
+    android:id="@+id/cv_row_task_archives"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_row="0"
@@ -11,28 +11,44 @@
     android:elevation="8dp">
 
     <LinearLayout
+        android:id="@+id/ll_row_task_archives"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/txt_group_name_in_row"
+            android:id="@+id/txt_archives_task_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group"
+            android:text="@string/task_name"
             android:textColor="@color/mainDarkGreen"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_group_description_in_row"
+            android:id="@+id/txt_archives_task_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/group_description"
-            android:textColor="@color/mainDarkGreen"
-            android:textSize="18sp"
-            android:textStyle="italic" />
+            android:text="@string/group"
+            android:textColor="@color/mainLightGrey"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_archives_task_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User name"
+            android:textColor="@color/mainLightGrey"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_archives_task_done_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deadline"
+            android:textColor="@color/mainLightGrey"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

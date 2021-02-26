@@ -94,21 +94,21 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         });
     }
 
-    private void checkUserIsAlreadyGroupMember(){
+    private void checkUserIsAlreadyGroupMember() {
         FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    Group group = task.getResult().getValue(Group.class);
-                    if(group.getMembersId().contains(userToInvite.getId())){
-                        Toast.makeText(mContext, "User is already group member", Toast.LENGTH_SHORT).show();
-                    } else {
-                        checkUserIsAlreadyInvited();
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Group group = task.getResult().getValue(Group.class);
+                            if (group.getMembersId().contains(userToInvite.getId())) {
+                                Toast.makeText(mContext, "User is already group member", Toast.LENGTH_SHORT).show();
+                            } else {
+                                checkUserIsAlreadyInvited();
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     private void checkUserIsAlreadyInvited() {

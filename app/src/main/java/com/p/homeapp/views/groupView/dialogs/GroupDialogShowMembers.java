@@ -77,25 +77,25 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
 
                         FirebaseDatabase.getInstance().getReference().child("users")
                                 .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (String memberId : currentGroup.getMembersId()) {
-                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                        User member = dataSnapshot.getValue(User.class);
-                                        if (member.getId().equals(memberId)) {
-                                            membersList.add(member);
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (String memberId : currentGroup.getMembersId()) {
+                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                User member = dataSnapshot.getValue(User.class);
+                                                if (member.getId().equals(memberId)) {
+                                                    membersList.add(member);
+                                                }
+                                            }
                                         }
+                                        System.out.println("Użykownicy: " + membersList.toString());
+                                        userAdapter.notifyDataSetChanged();
                                     }
-                                }
-                                System.out.println("Użykownicy: " + membersList.toString());
-                                userAdapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                                    }
+                                });
 
                     }
 

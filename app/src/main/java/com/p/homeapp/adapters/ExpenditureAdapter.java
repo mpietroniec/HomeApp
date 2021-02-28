@@ -13,7 +13,7 @@ import com.p.homeapp.entities.Expenditure;
 
 import java.util.ArrayList;
 
-public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.MoneyBalanceViewHolder> {
+public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.ExpendituresViewHolder> {
     private ArrayList<Expenditure> mExpenditures;
 
     public ExpenditureAdapter(ArrayList<Expenditure> expenditures) {
@@ -22,13 +22,13 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
 
     @NonNull
     @Override
-    public MoneyBalanceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExpendituresViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_fragment_money_balance_row, parent, false);
-        return new MoneyBalanceViewHolder(view);
+        return new ExpendituresViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MoneyBalanceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExpendituresViewHolder holder, int position) {
         holder.expenditureName.setText(mExpenditures.get(position).getExpenditureName());
         holder.expenditureDate.setText(mExpenditures.get(position).getExpenditureDate());
         holder.expenditureAmount.setText(String.valueOf(mExpenditures.get(position).getExpenditureAmount()));
@@ -39,10 +39,10 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
         return mExpenditures.size();
     }
 
-    public class MoneyBalanceViewHolder extends RecyclerView.ViewHolder {
+    public class ExpendituresViewHolder extends RecyclerView.ViewHolder {
         private TextView expenditureName, expenditureDate, expenditureAmount;
 
-        public MoneyBalanceViewHolder(@NonNull View itemView) {
+        public ExpendituresViewHolder(@NonNull View itemView) {
             super(itemView);
             expenditureName = itemView.findViewById(R.id.expenditure_name_txt);
             expenditureDate = itemView.findViewById(R.id.expenditure_date_txt);

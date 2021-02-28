@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +23,7 @@ import com.p.homeapp.adapters.TaskAdapter;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
+import com.p.homeapp.views.archives.TaskArchivesActivity;
 
 import java.util.ArrayList;
 
@@ -78,8 +80,9 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
         mRecyclerView.setAdapter(mTaskAdapter);
     }
 
-    @Override
 
+
+    @Override
     public void onItemClickListener(int position) {
         Log.d(TAG, "onNoteClick: clicked." + position);
     }

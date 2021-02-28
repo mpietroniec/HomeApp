@@ -24,6 +24,7 @@ public class Task {
     private String taskName;
     private Date deadline;
     private String taskType;
+    private String groupName;
     private boolean taskNotification;
     private int drawable;
     private User user;

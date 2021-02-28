@@ -51,13 +51,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(RegisterIntent);
         });
 
-        if(checkRemember.isChecked()){
-            String email = eTxtEmail.getText().toString();
-            String password = eTxtPassword.getText().toString();
-            SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBER_ME);
-            sessionManager.createRememberMeSession(email,password);
-        }
-
         btnLogin.setOnClickListener(v -> {
             String email = eTxtEmail.getText().toString();
             String password = eTxtPassword.getText().toString();

@@ -17,7 +17,8 @@
         <item
             android:id="@+id/id_archives_menu"
             android:title="@string/archives"
-            app:showAsAction="never"/>
+            app:showAsAction="never"
+            android:onClick="startArchivesActivity"/>
 
     </group>
 </menu>

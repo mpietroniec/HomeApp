@@ -29,7 +29,7 @@ import com.p.homeapp.views.groupView.dialogs.GroupMenuDialog;
 public class GroupMenuActivity extends AppCompatActivity {
 
     private TextView txtGroupName, txtGroupDescription;
-    private Button btnEditGroup, btnInviteUsers, btnShowMembers, btLeaveGroup;
+    private Button btnEditGroup, btnInviteUsers, btnShowMembers, btnLeaveGroup;
     private FloatingActionButton btnAddTaskFromGroupMenu;
 
     private String groupId;
@@ -50,7 +50,7 @@ public class GroupMenuActivity extends AppCompatActivity {
         btnInviteUsers = findViewById(R.id.btn_invite_users);
         btnShowMembers = findViewById(R.id.btn_show_members);
         btnAddTaskFromGroupMenu = findViewById(R.id.btn_add_task_from_group_menu);
-        btLeaveGroup = findViewById(R.id.btn_leave_group);
+        btnLeaveGroup = findViewById(R.id.btn_leave_group);
 
         Intent intent = getIntent();
         groupId = intent.getStringExtra("groupId");
@@ -68,7 +68,7 @@ public class GroupMenuActivity extends AppCompatActivity {
             finish();
         });
 
-        btLeaveGroup.setOnClickListener(view -> createLeavingDialog());
+        btnLeaveGroup.setOnClickListener(view -> createLeavingDialog());
 
         btnAddTaskFromGroupMenu.setOnClickListener(v -> {
             Intent intentAddTask = new Intent(GroupMenuActivity.this, AddTaskActivity.class);
@@ -130,7 +130,7 @@ public class GroupMenuActivity extends AppCompatActivity {
                         if (!group.getCreatorUserId().equals(firebaseUser.getUid())) {
                             btnEditGroup.setVisibility(View.GONE);
                             btnInviteUsers.setVisibility(View.GONE);
-                            btLeaveGroup.setVisibility(View.VISIBLE);
+                            btnLeaveGroup.setVisibility(View.VISIBLE);
                         }
                     }
 

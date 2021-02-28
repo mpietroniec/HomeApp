@@ -1,5 +1,15 @@
 package com.p.homeapp.views.mainView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,17 +18,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.widget.Toast;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
+import com.p.homeapp.entities.User;
 import com.p.homeapp.views.archives.ExpenditureArchivesActivity;
 import com.p.homeapp.views.archives.TaskArchivesActivity;
 import com.p.homeapp.views.groupView.GroupActivity;
@@ -29,11 +40,22 @@ import java.util.List;
 public class FragmentActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    FirebaseAuth mAuth;
+    String userLogin;
+    DatabaseReference databaseUsers;
+    private TextView navLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+
+        NavigationView navigationView = findViewById(R.id.nv_header);
+        View view = navigationView.getHeaderView(0);
+        navLogin = view.findViewById(R.id.txt_login_header);
+        loginUser();
+        TextView nav_mail = view.findViewById(R.id.txt_email_header);
+        nav_mail.setText(userMail());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.id_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -79,18 +101,18 @@ public class FragmentActivity extends AppCompatActivity {
                 return true;
             };
 
-    private Fragment getVisibleFragment(){
+    private Fragment getVisibleFragment() {
         FragmentManager fragmentManager = FragmentActivity.this.getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
-        for (Fragment fragment : fragments){
-            if(fragment != null && fragment.isVisible())
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible())
                 return fragment;
         }
         return null;
     }
 
-    public void startArchivesActivity(MenuItem item){
-        if(getVisibleFragment() instanceof FragmentTasks){
+    public void startArchivesActivity(MenuItem item) {
+        if (getVisibleFragment() instanceof FragmentTasks) {
             startActivity(new Intent(FragmentActivity.this, TaskArchivesActivity.class));
         } else {
             startActivity(new Intent(FragmentActivity.this, ExpenditureArchivesActivity.class));
@@ -106,16 +128,34 @@ public class FragmentActivity extends AppCompatActivity {
 
     public void startGroupActivity(MenuItem item) {
         Intent intent = new Intent(FragmentActivity.this, GroupActivity.class);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
         drawerLayout.closeDrawers();
     }
 
-    public void startInvitationActivity(MenuItem item){
+    public void startInvitationActivity(MenuItem item) {
         Intent intent = new Intent(FragmentActivity.this, InvitationMenuActivity.class);
         startActivity(intent);
         drawerLayout.closeDrawers();
     }
 
+    public void loginUser() {
+        String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-
+        FirebaseDatabase.getInstance().getReference().child("users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot dataSnapshot = task.getResult();
+                    User user = dataSnapshot.getValue(User.class);
+                    navLogin.setText(user.getLogin());
+                }
+            }
+        });
     }
+
+    public String userMail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user.getEmail();
+    }
+
+}

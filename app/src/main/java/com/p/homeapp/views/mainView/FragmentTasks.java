@@ -49,6 +49,7 @@ public class FragmentTasks extends Fragment implements ItemClickListener {
         addTaskButton.setOnClickListener(v -> {
             // UWAGA UWAGA UWAGA zamienione klasy
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
+            intent.putExtra("groupId", "none");
             startActivity(intent);
         });
         initRecyclerView();

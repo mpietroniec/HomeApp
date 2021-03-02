@@ -7,13 +7,25 @@
     android:padding="20dp"
     tools:context=".views.addingTasksViews.AddTaskActivity">
 
+    <TextView
+        android:id="@+id/txt_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/colorBasicText"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
     <Spinner
         android:id="@+id/spin_task_group"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/txt_group_name"
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_edit_text"
-        android:paddingStart="12dp"/>
+        android:paddingStart="12dp"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/etxt_task_name"
@@ -54,8 +66,9 @@
         android:id="@+id/iv_delete_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/etxt_task_name"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/ic_baseline_close_26"
         android:visibility="gone" />
 
@@ -97,36 +110,27 @@
         android:background="@drawable/custom_edit_text"
         android:paddingStart="12dp" />
 
-    <TextView
-        android:id="@+id/txt_add_task_owner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spin_task_type"
-        android:layout_marginTop="15dp"
-        android:text="@string/task_for"
-        android:textColor="@color/colorBasicText"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/txt_add_select_all"
+    <Button
+        android:id="@+id/btn_add_target_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spin_task_type"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/select_all"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Add Target"
+        android:textColor="@color/mainDarkGreen"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_target_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_add_target_users"
+        android:text="For:"
         android:textColor="@color/colorBasicText"
         android:textSize="18sp"
-        app:drawableStartCompat="@drawable/ic_baseline_check_26" />
+        android:layout_marginTop="15dp"/>
 
-    <FrameLayout
-        android:id="@+id/container_add_task_owners"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_save_task"
-        android:layout_below="@id/txt_add_task_owner"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/activity_add_custom" />
 
     <Button
         android:id="@+id/btn_save_task"

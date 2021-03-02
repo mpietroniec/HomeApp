@@ -40,28 +40,31 @@ import java.util.List;
 public class FragmentActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    FirebaseAuth mAuth;
-    String userLogin;
-    DatabaseReference databaseUsers;
-    private TextView navLogin;
+    private NavigationView navigationView;
+    private TextView navLogin, navMail;
+    private  BottomNavigationView bottomNavigationView;
+    private Toolbar toolbar;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-        NavigationView navigationView = findViewById(R.id.nv_header);
+        navigationView = findViewById(R.id.nv_header);
         View view = navigationView.getHeaderView(0);
         navLogin = view.findViewById(R.id.txt_login_header);
-        loginUser();
-        TextView nav_mail = view.findViewById(R.id.txt_email_header);
-        nav_mail.setText(userMail());
+        getUserLogin();
+        navMail = view.findViewById(R.id.txt_email_header);
+        navMail.setText(getUserMail());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.id_bottom_navigation);
+        bottomNavigationView = findViewById(R.id.id_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.id_fragment_container, new FragmentTasks()).commit();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -138,7 +141,7 @@ public class FragmentActivity extends AppCompatActivity {
         drawerLayout.closeDrawers();
     }
 
-    public void loginUser() {
+    public void getUserLogin() {
         String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         FirebaseDatabase.getInstance().getReference().child("users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -153,7 +156,7 @@ public class FragmentActivity extends AppCompatActivity {
         });
     }
 
-    public String userMail() {
+    public String getUserMail() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         return user.getEmail();
     }

@@ -65,15 +65,14 @@ public class GroupMenuActivity extends AppCompatActivity {
             Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
             intentEditGroup.putExtra("groupId", group.getId());
             startActivity(intentEditGroup);
-            finish();
         });
 
         btnLeaveGroup.setOnClickListener(view -> createLeavingDialog());
 
         btnAddTaskFromGroupMenu.setOnClickListener(v -> {
             Intent intentAddTask = new Intent(GroupMenuActivity.this, AddTaskActivity.class);
+            intentAddTask.putExtra("groupId", group.getId());
             startActivity(intentAddTask);
-            finish();
         });
     }
 

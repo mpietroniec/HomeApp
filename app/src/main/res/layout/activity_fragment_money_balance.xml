@@ -55,7 +55,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="2dp"
-            android:text="Details"
+            android:text="@string/details"
             android:textColor="@color/mainDarkGreen"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_right_26" />
 

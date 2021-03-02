@@ -14,10 +14,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.ItemClickListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.ExpenditureAdapter;
 import com.p.homeapp.entities.Expenditure;
+import com.p.homeapp.entities.Group;
 import com.p.homeapp.views.addingSettlementViews.AddSettlementActivity;
 
 import java.util.ArrayList;
@@ -29,6 +36,7 @@ public class FragmentMoneyBalance extends Fragment implements ItemClickListener 
 
     //vars
     private ArrayList<Expenditure> mExpenditures = new ArrayList<>();
+    private ArrayList<Group> mGroups = new ArrayList<>();
 
     private static final String TAG = "FragmentMoneyBalance";
     private ExpenditureAdapter mExpenditureAdapter;
@@ -44,7 +52,7 @@ public class FragmentMoneyBalance extends Fragment implements ItemClickListener 
             startActivity(intent);
         });
         intiRecyclerView();
-        insertFakeExpenditures();
+        readUserGroups();
         return view;
     }
 
@@ -52,19 +60,31 @@ public class FragmentMoneyBalance extends Fragment implements ItemClickListener 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mExpenditureAdapter = new ExpenditureAdapter(mExpenditures);
+        mExpenditureAdapter = new ExpenditureAdapter(mGroups,getContext());
         mRecyclerView.setAdapter(mExpenditureAdapter);
     }
 
-    private void insertFakeExpenditures(){
-        for (int i = 1; i<50; i++){
-            Expenditure expenditure = new Expenditure();
-            expenditure.setExpenditureName("Expenditure name: " + i);
-            expenditure.setExpenditureDate("2021-01-30");
-            expenditure.setExpenditureAmount(6.66f);
-            mExpenditures.add(expenditure);
-        }
-        mExpenditureAdapter.notifyDataSetChanged();
+    private void readUserGroups(){
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query query = FirebaseDatabase.getInstance().getReference().child("groups");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mGroups.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Group group = dataSnapshot.getValue(Group.class);
+                    if(group.getMembersId().contains(currentUserId))
+                        mGroups.add(group);
+                }
+                mExpenditureAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

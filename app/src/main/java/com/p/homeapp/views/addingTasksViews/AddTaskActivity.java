@@ -1,9 +1,5 @@
 package com.p.homeapp.views.addingTasksViews;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
-
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
@@ -130,22 +128,26 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         mRootRef = FirebaseDatabase.getInstance().getReference("tasks");
 
         btnSaveTask.setOnClickListener(v -> {
-            String taskName = eTxtTaskName.getText().toString();
-            String taskType = spinTaskType.getSelectedItem().toString();
-            String taskDeadline = txtTaskDeadline.getText().toString();
-            boolean taskNotification = chBoxTaskNotification.isChecked();
-
-            String taskId = mRootRef.push().getKey();
-
-            Task task = new Task();
-            task.setTaskName(taskName);
-            task.setTaskType(taskType);
-            task.setDeadline(DateParser.stringToDateParser(taskDeadline));
-            task.setTaskNotification(taskNotification);
-            task.setId(taskId);
-
-            saveTask(task);
+            getTaskData();
         });
+    }
+
+    private void getTaskData() {
+        String taskName = eTxtTaskName.getText().toString();
+        String taskType = spinTaskType.getSelectedItem().toString();
+        String taskDeadline = txtTaskDeadline.getText().toString();
+        boolean taskNotification = chBoxTaskNotification.isChecked();
+
+        String taskId = mRootRef.push().getKey();
+
+        Task task = new Task();
+        task.setTaskName(taskName);
+        task.setTaskType(taskType);
+        task.setDeadline(DateParser.stringToDateParser(taskDeadline));
+        task.setTaskNotification(taskNotification);
+        task.setId(taskId);
+
+        saveTask(task);
     }
 
     private void addGroupToSpinner() {

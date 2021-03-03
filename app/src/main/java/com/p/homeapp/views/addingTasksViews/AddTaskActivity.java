@@ -57,7 +57,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     FirebaseUser fUser;
 
     private String groupId;
-
     private List<String> userGroupNameList;
 
     @Override
@@ -92,7 +91,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             setGroupName(groupId);
         }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tasks_types, R.layout.activity_add_task_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.tasks_types, R.layout.activity_add_task_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTaskType.setAdapter(adapter);
 
@@ -149,23 +149,25 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void addGroupToSpinner() {
-        FirebaseDatabase.getInstance().getReference().child("groups").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    userGroupNameList.clear();
-                    for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                        Group group = snapshot.getValue(Group.class);
-                        if (group.getMembersId().contains(fUser.getUid())) {
-                            userGroupNameList.add(group.getName());
+        FirebaseDatabase.getInstance().getReference().child("groups").get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            userGroupNameList.clear();
+                            for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                                Group group = snapshot.getValue(Group.class);
+                                if (group.getMembersId().contains(fUser.getUid())) {
+                                    userGroupNameList.add(group.getName());
+                                }
+                            }
+                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
+                                    R.layout.activity_add_task_spinner_item, userGroupNameList);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinTaskGroup.setAdapter(arrayAdapter);
                         }
                     }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(),R.layout.activity_add_task_spinner_item , userGroupNameList);
-                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinTaskGroup.setAdapter(arrayAdapter);
-                }
-            }
-        });
+                });
     }
 
     private void setGroupName(String groupId) {
@@ -182,7 +184,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
         TextView textView = findViewById(R.id.txt_task_deadline);
 
         Calendar calendar = Calendar.getInstance();
@@ -204,6 +205,4 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         startActivity(intent);
         finish();
     }
-
-
 }

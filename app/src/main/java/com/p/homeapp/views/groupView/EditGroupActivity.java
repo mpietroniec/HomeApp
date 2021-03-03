@@ -1,19 +1,19 @@
 package com.p.homeapp.views.groupView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +25,6 @@ import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,7 +36,9 @@ public class EditGroupActivity extends AppCompatActivity {
     private UserAdapterWithThrowAway userAdapterWithThrowAway;
     private List<User> membersList;
 
-    FirebaseUser fUser;
+    private String groupId;
+
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,35 +50,32 @@ public class EditGroupActivity extends AppCompatActivity {
         btnSaveGroup = findViewById(R.id.btn_save_group);
         rvMembersName = findViewById(R.id.rv_members_name);
 
-        Intent intent = getIntent();
-        String groupId = intent.getStringExtra("groupId");
-
         membersList = new ArrayList<>();
         userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList, groupId);
         rvMembersName.setHasFixedSize(true);
         rvMembersName.setLayoutManager(new LinearLayoutManager(this));
         rvMembersName.setAdapter(userAdapterWithThrowAway);
 
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).addValueEventListener(new ValueEventListener() {
+        Intent intent = getIntent();
+        groupId = intent.getStringExtra("groupId");
+
+        getGroupData();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        btnSaveGroup.setOnClickListener(view -> updateGroup(groupId));
+    }
+
+    private void getGroupData() {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 membersList.clear();
                 Group group = snapshot.getValue(Group.class);
                 eTxtGroupName.setText(group.getName());
                 eTxtGroupDescription.setText(group.getDescription());
-                FirebaseDatabase.getInstance().getReference().child("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                            User user = dataSnapshot.getValue(User.class);
-                            if(group.getMembersId().contains(user.getId())){
-                                membersList.add(user);
-                            }
-                        }
-                        userAdapterWithThrowAway.notifyDataSetChanged();
-                    }
-                });
+                getMembers(group);
             }
 
             @Override
@@ -85,14 +83,22 @@ public class EditGroupActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        btnSaveGroup.setOnClickListener(new View.OnClickListener() {
+    private void getMembers(Group group) {
+        FirebaseDatabase.getInstance().getReference().child("users").get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
-            public void onClick(View view) {
-                updateGroup(groupId);
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if(group.getMembersId().contains(user.getId())){
+                        membersList.add(user);
+                    }
+                }
+                userAdapterWithThrowAway.notifyDataSetChanged();
             }
         });
-
     }
 
     private void updateGroup(String groupId) {
@@ -100,10 +106,12 @@ public class EditGroupActivity extends AppCompatActivity {
         map.put("name", eTxtGroupName.getText().toString());
         map.put("description", eTxtGroupDescription.getText().toString());
 
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
+                .updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(EditGroupActivity.this, "Group successfully updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditGroupActivity.this, "Group successfully updated",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

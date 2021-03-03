@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +36,6 @@ public class GroupMenuActivity extends AppCompatActivity {
     private FloatingActionButton btnAddTaskFromGroupMenu;
 
     private String groupId;
-    private Group group;
 
     FirebaseUser firebaseUser;
 
@@ -55,7 +57,7 @@ public class GroupMenuActivity extends AppCompatActivity {
         Intent intent = getIntent();
         groupId = intent.getStringExtra("groupId");
 
-        getGroup(groupId);
+        getGroupData();
 
         btnInviteUsers.setOnClickListener(view -> openInvitationDialog());
 
@@ -63,7 +65,7 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         btnEditGroup.setOnClickListener(view -> {
             Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
-            intentEditGroup.putExtra("groupId", group.getId());
+            intentEditGroup.putExtra("groupId", groupId);
             startActivity(intentEditGroup);
         });
 
@@ -71,9 +73,26 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         btnAddTaskFromGroupMenu.setOnClickListener(v -> {
             Intent intentAddTask = new Intent(GroupMenuActivity.this, AddTaskActivity.class);
-            intentAddTask.putExtra("groupId", group.getId());
+            intentAddTask.putExtra("groupId", groupId);
             startActivity(intentAddTask);
         });
+    }
+
+    private void getGroupData() {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //Group group = snapshot.getValue(Group.class);
+                        txtGroupName.setText(snapshot.getValue(Group.class).getName());
+                        txtGroupDescription.setText(snapshot.getValue(Group.class).getDescription());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void createLeavingDialog() {
@@ -115,29 +134,6 @@ public class GroupMenuActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void getGroup(String groupId) {
-
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        group = snapshot.getValue(Group.class);
-                        txtGroupDescription.setText(group.getDescription());
-                        txtGroupName.setText(group.getName());
-                        if (!group.getCreatorUserId().equals(firebaseUser.getUid())) {
-                            btnEditGroup.setVisibility(View.GONE);
-                            btnInviteUsers.setVisibility(View.GONE);
-                            btnLeaveGroup.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
     }
 
     private void openShowMembersDialog() {

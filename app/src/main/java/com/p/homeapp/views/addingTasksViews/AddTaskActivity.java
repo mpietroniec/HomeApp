@@ -1,9 +1,5 @@
 package com.p.homeapp.views.addingTasksViews;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.R;
-
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
@@ -57,7 +55,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     FirebaseUser fUser;
 
     private String groupId;
-
     private List<String> userGroupNameList;
 
     @Override
@@ -92,7 +89,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
             setGroupName(groupId);
         }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tasks_types, R.layout.activity_add_task_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.tasks_types, R.layout.activity_add_task_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTaskType.setAdapter(adapter);
 
@@ -130,42 +128,48 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         mRootRef = FirebaseDatabase.getInstance().getReference("tasks");
 
         btnSaveTask.setOnClickListener(v -> {
-            String taskName = eTxtTaskName.getText().toString();
-            String taskType = spinTaskType.getSelectedItem().toString();
-            String taskDeadline = txtTaskDeadline.getText().toString();
-            boolean taskNotification = chBoxTaskNotification.isChecked();
-
-            String taskId = mRootRef.push().getKey();
-
-            Task task = new Task();
-            task.setTaskName(taskName);
-            task.setTaskType(taskType);
-            task.setDeadline(DateParser.stringToDateParser(taskDeadline));
-            task.setTaskNotification(taskNotification);
-            task.setId(taskId);
-
-            saveTask(task);
+            getTaskData();
         });
     }
 
+    private void getTaskData() {
+        String taskName = eTxtTaskName.getText().toString();
+        String taskType = spinTaskType.getSelectedItem().toString();
+        String taskDeadline = txtTaskDeadline.getText().toString();
+        boolean taskNotification = chBoxTaskNotification.isChecked();
+
+        String taskId = mRootRef.push().getKey();
+
+        Task task = new Task();
+        task.setTaskName(taskName);
+        task.setTaskType(taskType);
+        task.setDeadline(DateParser.stringToDateParser(taskDeadline));
+        task.setTaskNotification(taskNotification);
+        task.setId(taskId);
+
+        saveTask(task);
+    }
+
     private void addGroupToSpinner() {
-        FirebaseDatabase.getInstance().getReference().child("groups").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
-                if (task.isSuccessful()) {
-                    userGroupNameList.clear();
-                    for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                        Group group = snapshot.getValue(Group.class);
-                        if (group.getMembersId().contains(fUser.getUid())) {
-                            userGroupNameList.add(group.getName());
+        FirebaseDatabase.getInstance().getReference().child("groups").get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            userGroupNameList.clear();
+                            for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                                Group group = snapshot.getValue(Group.class);
+                                if (group.getMembersId().contains(fUser.getUid())) {
+                                    userGroupNameList.add(group.getName());
+                                }
+                            }
+                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
+                                    R.layout.activity_add_task_spinner_item, userGroupNameList);
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinTaskGroup.setAdapter(arrayAdapter);
                         }
                     }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(),R.layout.activity_add_task_spinner_item , userGroupNameList);
-                    arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinTaskGroup.setAdapter(arrayAdapter);
-                }
-            }
-        });
+                });
     }
 
     private void setGroupName(String groupId) {
@@ -182,7 +186,6 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
         TextView textView = findViewById(R.id.txt_task_deadline);
 
         Calendar calendar = Calendar.getInstance();
@@ -204,6 +207,4 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         startActivity(intent);
         finish();
     }
-
-
 }

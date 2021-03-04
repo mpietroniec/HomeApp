@@ -17,7 +17,7 @@
             android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.groupView.EditGroupActivity"
-            android:parentActivityName=".views.groupView.GroupMenuActivity" />
+            android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.invitation.InvitationMenuActivity"
             android:parentActivityName=".views.mainView.FragmentActivity" />

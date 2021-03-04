@@ -26,18 +26,21 @@ import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.helpers.AccountDataValidator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText eTxtLogin, eTxtEmail, eTxtPassword, eTxtConfirmPassword;
-    Button btnRegister;
-    TextView txtLogin;
+    private EditText eTxtLogin, eTxtEmail, eTxtPassword, eTxtConfirmPassword;
+    private Button btnRegister;
+    private TextView txtLogin;
 
-    AccountDataValidator accountDataValidator;
+    private AccountDataValidator accountDataValidator;
 
     private DatabaseReference mRootRef;
     private FirebaseAuth mAuth;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
             String email = eTxtEmail.getText().toString();
             String password = eTxtPassword.getText().toString();
             String confirmPassword = eTxtConfirmPassword.getText().toString();
+            List<String> userGroupsId = new ArrayList<>();
 
             User user = new User();
             user.setLogin(login);
             user.setEmail(email);
+            user.setUserGroupsId(userGroupsId);
 
             if (accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user)) {
                 registerUser(user, password);

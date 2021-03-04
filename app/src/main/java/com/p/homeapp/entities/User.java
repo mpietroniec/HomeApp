@@ -1,6 +1,7 @@
 package com.p.homeapp.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,7 @@ public class User {
     private String id;
     private String login;
     private String email;
+    private List<String> userGroupsId;
 
     @Override
     public String toString() {

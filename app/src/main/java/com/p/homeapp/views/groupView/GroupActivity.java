@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.GroupAdapter;
 import com.p.homeapp.entities.Group;
+import com.p.homeapp.entities.User;
 import com.p.homeapp.views.groupView.createGroup.CreateGroupActivity;
 
 import java.util.ArrayList;
@@ -27,13 +31,16 @@ import java.util.List;
 
 public class GroupActivity extends AppCompatActivity {
 
-    FloatingActionButton floatingBtnAddGroup, floatingBtnCreateGroup, floatingBtnJoinToGroup;
+    private FloatingActionButton floatingBtnAddGroup, floatingBtnCreateGroup, floatingBtnJoinToGroup;
 
-    RecyclerView rvGroup;
+    private RecyclerView rvGroup;
     private List<Group> mGroups;
     private GroupAdapter groupAdapter;
 
+    private FirebaseUser fUser;
+
     boolean flagIsClicked;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +59,8 @@ public class GroupActivity extends AppCompatActivity {
         rvGroup.setLayoutManager(new LinearLayoutManager(this));
         rvGroup.setAdapter(groupAdapter);
 
-        //readGroups();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+
         readUserGroups();
 
         flagIsClicked = false;
@@ -69,22 +77,26 @@ public class GroupActivity extends AppCompatActivity {
         });
 
         floatingBtnCreateGroup.setOnClickListener(view -> {
-            Intent intent = new Intent(GroupActivity.this, CreateGroupActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            startCreatingGroup();
         });
     }
 
-    private void readUserGroups() {
-        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query query = FirebaseDatabase.getInstance().getReference().child("groups");
+    private void startCreatingGroup() {
+        Intent intent = new Intent(GroupActivity.this, CreateGroupActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
 
+    private void readUserGroups() {
+        String currentUserId = fUser.getUid();
+        getUserGroupsId(currentUserId);
+        Query query = FirebaseDatabase.getInstance().getReference().child("groups");
+        mGroups.clear();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mGroups.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Group group = dataSnapshot.getValue(Group.class);
                     if(group.getMembersId().contains(currentUserId))
@@ -96,6 +108,34 @@ public class GroupActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    private void getUserGroupsId(String currentUserId) {
+        FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId).get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    List<String> userGroupsIdList = task.getResult().getValue(User.class).getUserGroupsId();
+                    if (userGroupsIdList != null) {
+                        for (String groupId : userGroupsIdList) {
+                            getGroup(groupId);
+                        }
+                    }
+                    groupAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void getGroup(String groupId) {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Group group = task.getResult().getValue(Group.class);
+                mGroups.add(group);
             }
         });
     }

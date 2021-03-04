@@ -17,7 +17,8 @@
             android:id="@+id/id_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/id_bottom_navigation" />
+            android:layout_above="@+id/id_bottom_navigation"
+            android:layout_below="@+id/toolbar" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/id_bottom_navigation"

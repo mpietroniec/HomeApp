@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.protobuf.Internal;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Task;
@@ -52,7 +53,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
     private DatabaseReference mRootRef;
 
-    FirebaseUser fUser;
+    private FirebaseUser fUser;
 
     private String groupId;
     private List<String> userGroupNameList;

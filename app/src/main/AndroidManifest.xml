@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".views.archives.ExpenditureArchivesActivity"
-            android:parentActivityName=".views.mainView.FragmentActivity" />
+            android:name=".views.moneyBalance.MoneyBalanceActivity"
+            android:parentActivityName=".views.mainView.FragmentActivity"/>
         <activity
             android:name=".views.archives.TaskArchivesActivity"
             android:parentActivityName=".views.mainView.FragmentActivity" />

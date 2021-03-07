@@ -45,9 +45,6 @@ public class FragmentActivity extends AppCompatActivity {
     private  BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseUsers;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +78,24 @@ public class FragmentActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.sort_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        if (getVisibleFragment() instanceof FragmentTasks) {
+//            MenuInflater inflater = getMenuInflater();
+//            inflater.inflate(R.menu.sort_menu, menu);
+//            return true;
+//        }
+//        return false;
+//    }
+//        FragmentManager fragmentManager = FragmentActivity.this.getSupportFragmentManager();
+//        List<Fragment> fragments = fragmentManager.getFragments();
+//        for(Fragment fragment : fragments){
+//            if
+//        }
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.sort_menu, menu);
+//        return true;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {

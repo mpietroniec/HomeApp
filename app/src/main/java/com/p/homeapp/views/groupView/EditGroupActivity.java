@@ -2,6 +2,9 @@ package com.p.homeapp.views.groupView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import com.p.homeapp.R;
 import com.p.homeapp.adapters.userAdapters.UserAdapterWithThrowAway;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.views.mainView.FragmentActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,6 +62,18 @@ public class EditGroupActivity extends AppCompatActivity {
         getGroupData();
 
         btnSaveGroup.setOnClickListener(view -> updateGroup(groupId));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    public void startMainView(MenuItem item){
+        Intent intent = new Intent(EditGroupActivity.this, FragmentActivity.class);
+        startActivity(intent);
     }
 
     private void getGroupData() {

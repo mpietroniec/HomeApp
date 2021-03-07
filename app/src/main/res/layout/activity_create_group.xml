@@ -18,6 +18,7 @@
         android:drawablePadding="12dp"
         android:hint="@string/group_name"
         android:inputType="text"
+        android:maxLength="50"
         android:maxLines="1"
         android:paddingStart="12dp"
         android:textColor="@color/colorBasicText"
@@ -28,20 +29,25 @@
     <EditText
         android:id="@+id/etxt_group_description"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/etxt_group_name"
         android:layout_marginTop="15dp"
         android:autofillHints="@string/group_description"
         android:background="@drawable/custom_edit_text"
-        android:drawableStart="@drawable/custom_short_text_icon"
         android:drawablePadding="12dp"
+        android:gravity="top|start"
         android:hint="@string/group_description"
-        android:inputType="text"
-        android:paddingStart="12dp"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="8"
+        android:maxLines="8"
+        android:maxLength="300"
+        android:padding="12dp"
+        android:scrollHorizontally="false"
         android:textColor="@color/colorBasicText"
         android:textCursorDrawable="@null"
+        android:textSize="18sp"
         android:textStyle="italic"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <Button
         android:id="@+id/btn_save_group"

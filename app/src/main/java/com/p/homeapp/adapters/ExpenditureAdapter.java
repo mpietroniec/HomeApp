@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.p.homeapp.R;
-import com.p.homeapp.entities.Expenditure;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.views.moneyBalance.MoneyBalanceActivity;
 import com.p.homeapp.views.moneyBalance.fragments.FragmentSettlement;

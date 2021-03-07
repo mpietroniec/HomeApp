@@ -11,46 +11,42 @@
     android:layout_marginBottom="1dp"
     android:elevation="8dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="12dp">
 
-        <LinearLayout
-            android:id="@+id/money_balance_row"
+        <TextView
+            android:id="@+id/txt_expenditure_group_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/group"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="18sp" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <TextView
-                android:id="@+id/txt_expenditure_group_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/group"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="2dp"
-                android:text="@string/details"
-                android:textColor="@color/mainDarkGreen"
-                app:drawableEndCompat="@drawable/ic_baseline_arrow_right_26" />
-
-        </LinearLayout>
+            android:layout_below="@+id/txt_expenditure_group_name"
+            android:text="@string/details"
+            android:textColor="@color/mainDarkGreen"
+            android:textSize="18sp"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_right_26" />
 
         <TextView
             android:id="@+id/txt_expenditure_amount"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="100dp"
-            android:gravity="center"
+            android:layout_marginEnd="20dp"
             android:maxLines="1"
             android:text="Amount"
             android:textColor="@color/mainDarkGreen"
             android:textSize="28sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

@@ -11,4 +11,12 @@
         android:layout_centerInParent="true"
         android:text="Expenditures"/>
 
+    <TextView
+        android:id="@+id/txt_fragment_expenditures_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/txt_fragment_expenditures"
+        android:text="Expenditures group name"/>
+
 </RelativeLayout>

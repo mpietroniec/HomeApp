@@ -13,4 +13,12 @@
         android:layout_centerInParent="true"
         android:text="Settlement" />
 
+    <TextView
+        android:id="@+id/txt_fragment_settlement_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/txt_fragment_settlement"
+        android:text="Settlement group name" />
+
 </RelativeLayout>

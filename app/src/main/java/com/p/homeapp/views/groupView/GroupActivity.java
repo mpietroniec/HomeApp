@@ -85,7 +85,6 @@ public class GroupActivity extends AppCompatActivity {
         Intent intent = new Intent(GroupActivity.this, CreateGroupActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
     }
 
     private void readUserGroups() {

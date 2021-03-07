@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.ExpendituresViewHolder> {
     private ArrayList<Group> mGroups;
 
+
     private Context context;
 
     private FirebaseUser firebaseUser;

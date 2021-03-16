@@ -1,6 +1,7 @@
 package com.p.homeapp.views.moneyBalance.fragments;
 
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,13 @@ import com.p.homeapp.R;
 
 public class FragmentSettlement extends Fragment {
     private TextView settlementGroupName;
+
+import com.p.homeapp.entities.Expenditure;
+import com.p.homeapp.entities.Group;
+
+public class FragmentSettlement extends Fragment {
+    private TextView settlementGroupName;
+    Group group;
 
     @Nullable
     @Override

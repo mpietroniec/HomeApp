@@ -54,7 +54,6 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
             fragmentSettlement.setArguments(bundle);
             context.startActivity(intent);
         });
-
     }
 
     @Override

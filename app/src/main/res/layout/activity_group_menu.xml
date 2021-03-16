@@ -98,6 +98,18 @@
                         android:paddingEnd="20dp"
                         android:text="Show Members"
                         android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btn_remove_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:padding="5dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Remove group"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>

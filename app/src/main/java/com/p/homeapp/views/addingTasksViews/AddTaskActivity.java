@@ -27,7 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.protobuf.Internal;
 import com.p.homeapp.R;
+import com.p.homeapp.androidElements.Spinners;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
@@ -36,7 +38,9 @@ import com.p.homeapp.views.mainView.FragmentActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class AddTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -52,10 +56,11 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
     private DatabaseReference mRootRef;
 
-    FirebaseUser fUser;
+    private FirebaseUser fUser;
 
     private String groupId;
     private List<String> userGroupNameList;
+    private Map<String, Group> userGroupMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,7 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
         llAddNotification = findViewById(R.id.ll_add_notification);
 
         userGroupNameList = new ArrayList<>();
+        userGroupMap = new HashMap<>();
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -151,25 +157,8 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
     }
 
     private void addGroupToSpinner() {
-        FirebaseDatabase.getInstance().getReference().child("groups").get()
-                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            userGroupNameList.clear();
-                            for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                                Group group = snapshot.getValue(Group.class);
-                                if (group.getMembersId().contains(fUser.getUid())) {
-                                    userGroupNameList.add(group.getName());
-                                }
-                            }
-                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-                                    R.layout.activity_add_task_spinner_item, userGroupNameList);
-                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinTaskGroup.setAdapter(arrayAdapter);
-                        }
-                    }
-                });
+        Spinners spinners = new Spinners();
+        spinTaskGroup.setAdapter(spinners.groupSpinnerFacade(getApplicationContext()));
     }
 
     private void setGroupName(String groupId) {

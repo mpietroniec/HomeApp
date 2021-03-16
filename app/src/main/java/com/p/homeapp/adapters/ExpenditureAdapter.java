@@ -75,3 +75,4 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
         }
     }
 }
+

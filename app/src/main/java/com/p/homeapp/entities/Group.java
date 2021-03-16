@@ -1,5 +1,8 @@
 package com.p.homeapp.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 public class Group {
 // komentarz
 
@@ -21,6 +25,7 @@ public class Group {
     private String creatorUserId;
     private List<String> membersId;
     private List<String> tasksId;
+
 
     @Override
     public String toString() {

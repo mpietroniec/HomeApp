@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class Group {
-
+// komentarz
 
     private String id;
     public String name;

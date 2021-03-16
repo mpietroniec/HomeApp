@@ -26,7 +26,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     private FirebaseUser firebaseUser;
 
-    public GroupAdapter(Context context, List<Group> mGroups){
+    public GroupAdapter(Context context, List<Group> mGroups) {
         this.context = context;
         this.mGroups = mGroups;
     }
@@ -43,6 +43,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Group group = mGroups.get(position);
+
         holder.groupName.setText(group.getName());
         holder.groupDescription.setText(group.getDescription());
 
@@ -62,7 +63,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return mGroups.size();
     }
 
-    public class GroupViewHolder extends RecyclerView.ViewHolder{
+    public class GroupViewHolder extends RecyclerView.ViewHolder {
 
         private TextView groupName, groupDescription;
         CardView reviewLayoutGroup;

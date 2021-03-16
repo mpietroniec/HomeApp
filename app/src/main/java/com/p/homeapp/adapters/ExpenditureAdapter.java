@@ -55,7 +55,7 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
                 Fragment fragmentSettlement = new FragmentSettlement();
                 Bundle bundle = new Bundle();
 //                bundle.getParcelable("Group", mGroups.get(position));
-                bundle.putParcelable("Group", mGroups.get(position));
+          //      bundle.putParcelable("Group", mGroups.get(position));
 
                 fragmentSettlement.setArguments(bundle);
                 context.startActivity(intent);

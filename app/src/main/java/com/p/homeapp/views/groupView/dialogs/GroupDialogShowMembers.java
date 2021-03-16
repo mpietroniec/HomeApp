@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -69,40 +71,26 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
 
     private void getAllMembers(String groupId) {
         membersList.clear();
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId)
-                .addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Group currentGroup = task.getResult().getValue(Group.class);
+
+                FirebaseDatabase.getInstance().getReference().child("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Group currentGroup = snapshot.getValue(Group.class);
-
-                        FirebaseDatabase.getInstance().getReference().child("users")
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (String memberId : currentGroup.getMembersId()) {
-                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                User member = dataSnapshot.getValue(User.class);
-                                                if (member.getId().equals(memberId)) {
-                                                    membersList.add(member);
-                                                }
-                                            }
-                                        }
-                                        System.out.println("Użykownicy: " + membersList.toString());
-                                        userAdapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        for (String memberId : currentGroup.getMembersId()) {
+                            for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                                User member = dataSnapshot.getValue(User.class);
+                                if (member.getId().equals(memberId)) {
+                                    membersList.add(member);
+                                }
+                            }
+                        }
+                        userAdapter.notifyDataSetChanged();
                     }
                 });
+            }
+        });
     }
 }

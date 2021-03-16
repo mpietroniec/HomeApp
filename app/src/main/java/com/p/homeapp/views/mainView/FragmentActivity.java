@@ -2,8 +2,6 @@ package com.p.homeapp.views.mainView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -16,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,17 +22,13 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.p.homeapp.MainActivity;
 import com.p.homeapp.R;
 import com.p.homeapp.entities.User;
-import com.p.homeapp.views.archives.ExpenditureArchivesActivity;
 import com.p.homeapp.views.archives.TaskArchivesActivity;
 import com.p.homeapp.views.groupView.GroupActivity;
 import com.p.homeapp.views.invitation.InvitationMenuActivity;
-
-import java.util.List;
 
 public class FragmentActivity extends AppCompatActivity {
 
@@ -44,9 +37,6 @@ public class FragmentActivity extends AppCompatActivity {
     private TextView navLogin, navMail;
     private  BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
-
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +71,6 @@ public class FragmentActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.sort_menu, menu);
-        return true;
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
                 Fragment selectedFragment = null;
@@ -104,22 +87,8 @@ public class FragmentActivity extends AppCompatActivity {
                 return true;
             };
 
-    private Fragment getVisibleFragment() {
-        FragmentManager fragmentManager = FragmentActivity.this.getSupportFragmentManager();
-        List<Fragment> fragments = fragmentManager.getFragments();
-        for (Fragment fragment : fragments) {
-            if (fragment != null && fragment.isVisible())
-                return fragment;
-        }
-        return null;
-    }
-
     public void startArchivesActivity(MenuItem item) {
-        if (getVisibleFragment() instanceof FragmentTasks) {
             startActivity(new Intent(FragmentActivity.this, TaskArchivesActivity.class));
-        } else {
-            startActivity(new Intent(FragmentActivity.this, ExpenditureArchivesActivity.class));
-        }
     }
 
     public void logout(MenuItem item) {

@@ -44,5 +44,7 @@
     <string name="login">Zaloguj się</string>
     <string name="register">Zarejestruj się</string>
     <string name="password">Hasło</string>
+    <string name="details">Detale</string>
+    <string name="remind_password">Przypomnij hasło</string>
 </resources>
 

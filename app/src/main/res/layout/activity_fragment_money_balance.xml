@@ -15,8 +15,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="25dp"
         android:backgroundTint="@color/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
         android:src="@drawable/ic_baseline_add_45" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -55,7 +53,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="2dp"
-            android:text="Details"
+            android:text="@string/details"
             android:textColor="@color/mainDarkGreen"
             app:drawableEndCompat="@drawable/ic_baseline_arrow_right_26" />
 

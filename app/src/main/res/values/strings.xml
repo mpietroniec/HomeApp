@@ -4,7 +4,7 @@
     <string name="password">Password</string>
     <string name="confirmPassword">Powtórz Hasło</string>
     <string name="log_in">Zaloguj</string>
-    <string name="not_registered">Nie masz konta?</string>
+    <string name="not_registered">You don\'t have an account?</string>
     <string name="register">Register</string>
     <string name="forgotten_password">Nie pamiętasz hasła?</string>
     <string name="remind_password">Remind password</string>
@@ -53,4 +53,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="group_name">Group name</string>
     <string name="group_description">Group description</string>
+    <string name="details">Details</string>
+
 </resources>

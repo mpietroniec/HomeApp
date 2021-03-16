@@ -20,4 +20,11 @@ public class Group {
     private String creatorUserId;
     private List<String> membersId;
     private List<String> tasksId;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
+
+

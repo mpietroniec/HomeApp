@@ -75,9 +75,10 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         btnAddTaskFromGroupMenu.setOnClickListener(v -> startAddTaskActivity());
 
-        btnRemoveGroup.setOnClickListener(view -> {
+/*        btnRemoveGroup.setOnClickListener(view -> {
+            //TODO
             startRemoveGroupDialog();
-        });
+        });*/
     }
 
     private void startRemoveGroupDialog() {

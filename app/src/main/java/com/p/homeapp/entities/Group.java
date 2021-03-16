@@ -15,7 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Group implements Parcelable {
+
+public class Group {
+// komentarz
 
     private String id;
     public String name;
@@ -30,5 +32,7 @@ public class Group implements Parcelable {
         return name;
     }
 }
+
+
 
 

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.ExpendituresViewHolder> {
     private ArrayList<Group> mGroups;
 
-
     private Context context;
 
     private FirebaseUser firebaseUser;
@@ -48,21 +47,14 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
 
         Group group = mGroups.get(position);
         holder.expenditureGroupName.setText(group.getName());
-        holder.groupMoneyBalanceReviewLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MoneyBalanceActivity.class);
-//                intent.putExtra("Group", mGroups.get(position));
-                Fragment fragmentSettlement = new FragmentSettlement();
-                Bundle bundle = new Bundle();
-//                bundle.getParcelable("Group", mGroups.get(position));
-                bundle.putParcelable("Group", mGroups.get(position));
-
-                fragmentSettlement.setArguments(bundle);
-                context.startActivity(intent);
-            }
+        holder.groupMoneyBalanceReviewLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(context, MoneyBalanceActivity.class);
+            Fragment fragmentSettlement = new FragmentSettlement();
+            Bundle bundle = new Bundle();
+            fragmentSettlement.setArguments(bundle);
+            context.startActivity(intent);
         });
-        //holder.expenditureAmount.setText(String.valueOf(mExpenditures.get(position).getExpenditureAmount()));
+
     }
 
     @Override
@@ -83,3 +75,4 @@ public class ExpenditureAdapter extends RecyclerView.Adapter<ExpenditureAdapter.
         }
     }
 }
+

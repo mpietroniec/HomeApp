@@ -71,25 +71,26 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
 
     private void getAllMembers(String groupId) {
         membersList.clear();
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        FirebaseDatabase.getInstance().getReference().child("groupUsers").child(groupId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Group currentGroup = task.getResult().getValue(Group.class);
+                for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                    String userId = snapshot.getKey();
+                    getUsersForMembersList(userId);
+                }
+            }
+        });
+    }
 
-                FirebaseDatabase.getInstance().getReference().child("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        for (String memberId : currentGroup.getMembersId()) {
-                            for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                                User member = dataSnapshot.getValue(User.class);
-                                if (member.getId().equals(memberId)) {
-                                    membersList.add(member);
-                                }
-                            }
-                        }
-                        userAdapter.notifyDataSetChanged();
-                    }
-                });
+    private void getUsersForMembersList(String userId) {
+        FirebaseDatabase.getInstance().getReference("users").child(userId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful()){
+                    User user = task.getResult().getValue(User.class);
+                    membersList.add(user);
+                    userAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

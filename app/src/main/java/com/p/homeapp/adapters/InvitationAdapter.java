@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
+import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Invitation;
 import com.p.homeapp.entities.User;
@@ -34,12 +35,14 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
 
     private Context mContext;
     private List<Invitation> mInvitations;
+    private GroupController groupController;
 
     private FirebaseUser firebaseUser;
 
     public InvitationAdapter(Context mContext, List<Invitation> mInvitations) {
         this.mContext = mContext;
         this.mInvitations = mInvitations;
+        groupController = new GroupController(mContext);
     }
 
     @NonNull
@@ -52,6 +55,7 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
     @Override
     public void onBindViewHolder(@NonNull InvitationViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
 
         Invitation invitation = mInvitations.get(position);
 
@@ -140,40 +144,13 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                FirebaseDatabase.getInstance().getReference().child("groups").child(invitation.getGroupId())
-                        .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        Group group = task.getResult().getValue(Group.class);
-                        addUserToMembersId(group, invitation);
-
-                        addGroupIdToUsersGroups(group, invitation, alertDialog);
-                    }
-                });
+                groupController.joinToGroup(invitation.getGroupId(), firebaseUser.getUid());
+                deleteInvitation(invitation, alertDialog);
             }
         });
         alertDialog.show();
     }
 
-    private void addGroupIdToUsersGroups(Group group, Invitation invitation, AlertDialog alertDialog) {
-        DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance()
-                .getReference().child("users").child(firebaseUser.getUid());
-        userDatabaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                User user = task.getResult().getValue(User.class);
-                List<String> userGroupsId = user.getUserGroupsId();
-                if (userGroupsId == null) {
-                    userGroupsId = new ArrayList<>();
-                }
-                userGroupsId.add(group.getId());
-                user.setUserGroupsId(userGroupsId);
-                userDatabaseReference.setValue(user);
-                deleteInvitation(invitation, alertDialog);
-
-            }
-        });
-    }
 
     private void deleteInvitation(Invitation invitation, AlertDialog alertDialog) {
         FirebaseDatabase.getInstance().getReference().child("invitations")
@@ -185,14 +162,6 @@ public class InvitationAdapter extends RecyclerView.Adapter<InvitationAdapter.In
                         alertDialog.dismiss();
                     }
                 });
-    }
-
-    private void addUserToMembersId(Group group, Invitation invitation) {
-        List<String> membersId = group.getMembersId();
-        membersId.add(firebaseUser.getUid());
-        group.setMembersId(membersId);
-        FirebaseDatabase.getInstance().getReference().child("groups")
-                .child(invitation.getGroupId()).setValue(group);
     }
 
     private void createRejectDialog(Invitation invitation) {

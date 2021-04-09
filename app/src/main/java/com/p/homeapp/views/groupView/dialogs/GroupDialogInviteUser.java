@@ -29,15 +29,14 @@ import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Invitation;
 import com.p.homeapp.entities.User;
 
-public class GroupMenuDialog extends AppCompatDialogFragment {
+public class GroupDialogInviteUser extends AppCompatDialogFragment {
 
     private String groupId;
     private Context mContext;
     private User userToInvite;
     private String usernameToFind;
 
-
-    public GroupMenuDialog(String groupId, Context mContext) {
+    public GroupDialogInviteUser(String groupId, Context mContext) {
         this.groupId = groupId;
         this.mContext = mContext;
     }
@@ -51,6 +50,7 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_group_menu_dialog, null);
         EditText eTxtFindUsername = view.findViewById(R.id.etxt_find_username);
+
         builder.setView(view)
                 .setTitle("Invite user")
                 .setNeutralButton("cancel", new DialogInterface.OnClickListener() {
@@ -83,7 +83,7 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
                         if (user.getLogin().toLowerCase().equals(usernameToFind.toLowerCase())) {
                             flag = true;
                             userToInvite = dataSnapshot.getValue(User.class);
-                            checkUserIsAlreadyGroupMember();
+                            checkUserIsAlreadyGroupMember(userToInvite);
                         }
                     }
                     if (flag == false) {
@@ -94,14 +94,22 @@ public class GroupMenuDialog extends AppCompatDialogFragment {
         });
     }
 
-    private void checkUserIsAlreadyGroupMember() {
-        FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get()
+    private void checkUserIsAlreadyGroupMember(User userToInvite) {
+        FirebaseDatabase.getInstance().getReference().child("groupUsers").child(groupId).get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
-                            Group group = task.getResult().getValue(Group.class);
-                            if (group.getMembersId().contains(userToInvite.getId())) {
+                            boolean isUserGroupMember = false;
+                            for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                                String userId = snapshot.getKey();
+                                if(userId.equals(userToInvite.getId())){
+                                    if((boolean)snapshot.getValue() == true){
+                                        isUserGroupMember = true;
+                                    }
+                                }
+                            }
+                            if(isUserGroupMember){
                                 Toast.makeText(mContext, "User is already group member", Toast.LENGTH_SHORT).show();
                             } else {
                                 checkUserIsAlreadyInvited();

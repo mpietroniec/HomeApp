@@ -16,7 +16,6 @@ public class User {
     private String id;
     private String login;
     private String email;
-    private List<String> userGroupsId;
 
     @Override
     public String toString() {

@@ -50,9 +50,9 @@ public class Spinners {
                             userGroupList.clear();
                             for (DataSnapshot snapshot : task.getResult().getChildren()) {
                                 Group group = snapshot.getValue(Group.class);
-                                if (group.getMembersId().contains(fUser.getUid())) {
+/*                                if (group.getMembersId().contains(fUser.getUid())) {
                                     userGroupList.add(group);
-                                }
+                                }*/
                                 arrayAdapter.notifyDataSetChanged();
                             }
 

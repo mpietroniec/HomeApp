@@ -90,9 +90,6 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Group group = snapshot.getValue(Group.class);
-                List<String> membersIdList = group.getMembersId();
-                membersIdList.remove(memberId);
-                groupReference.child("membersId").setValue(membersIdList);
             }
 
             @Override

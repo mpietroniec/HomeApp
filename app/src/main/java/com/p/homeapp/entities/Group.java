@@ -3,6 +3,8 @@ package com.p.homeapp.entities;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -15,15 +17,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
 public class Group {
-// komentarz
 
     private String id;
     public String name;
     public String description;
     private String creatorUserId;
-    private List<String> membersId;
+
     private List<String> tasksId;
 
 

@@ -62,7 +62,8 @@
                             android:layout_marginEnd="35dp"
                             android:padding="5dp"
                             android:text="Edit Group"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
 
                         <Button
                             android:id="@+id/btn_invite_users"
@@ -70,7 +71,8 @@
                             android:layout_height="40dp"
                             android:padding="5dp"
                             android:text="Invite Users"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
@@ -109,7 +111,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:text="Remove group"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -126,9 +129,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="25dp"
+        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:src="@drawable/ic_baseline_add_45"/>
+        android:src="@drawable/ic_baseline_add_45" />
 
 </RelativeLayout>

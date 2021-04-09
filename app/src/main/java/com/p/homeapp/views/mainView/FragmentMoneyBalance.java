@@ -74,8 +74,8 @@ public class FragmentMoneyBalance extends Fragment implements ItemClickListener 
                 mGroups.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Group group = dataSnapshot.getValue(Group.class);
-                    if(group.getMembersId().contains(currentUserId))
-                        mGroups.add(group);
+/*                    if(group.getMembersId().contains(currentUserId))
+                        mGroups.add(group);*/
                 }
                 mExpenditureAdapter.notifyDataSetChanged();
             }

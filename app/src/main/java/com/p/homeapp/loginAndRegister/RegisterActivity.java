@@ -74,12 +74,10 @@ public class RegisterActivity extends AppCompatActivity {
             String email = eTxtEmail.getText().toString();
             String password = eTxtPassword.getText().toString();
             String confirmPassword = eTxtConfirmPassword.getText().toString();
-            List<String> userGroupsId = new ArrayList<>();
 
             User user = new User();
             user.setLogin(login);
             user.setEmail(email);
-            user.setUserGroupsId(userGroupsId);
 
             if (accountDataValidator.validateRegisterData(getApplicationContext(), password, confirmPassword, user)) {
                 registerUser(user, password);

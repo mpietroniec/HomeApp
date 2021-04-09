@@ -102,9 +102,9 @@ public class EditGroupActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                             User user = dataSnapshot.getValue(User.class);
-                            if (group.getMembersId().contains(user.getId())) {
+/*                            if (group.getMembersId().contains(user.getId())) {
                                 membersList.add(user);
-                            }
+                            }*/
                         }
                         userAdapterWithThrowAway.notifyDataSetChanged();
                     }

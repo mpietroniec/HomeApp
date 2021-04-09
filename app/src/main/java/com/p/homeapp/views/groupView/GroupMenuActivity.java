@@ -21,17 +21,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
-import com.p.homeapp.entities.User;
 import com.p.homeapp.views.addingTasksViews.AddTaskActivity;
 import com.p.homeapp.views.groupView.dialogs.GroupDialogShowMembers;
-import com.p.homeapp.views.groupView.dialogs.GroupMenuDialog;
+import com.p.homeapp.views.groupView.dialogs.GroupDialogInviteUser;
 import com.p.homeapp.views.mainView.FragmentActivity;
 
 public class GroupMenuActivity extends AppCompatActivity {
@@ -97,7 +93,6 @@ public class GroupMenuActivity extends AppCompatActivity {
         removeDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                groupController.removeGroup(groupId);
                 dialogInterface.dismiss();
             }
         });
@@ -111,7 +106,7 @@ public class GroupMenuActivity extends AppCompatActivity {
         return true;
     }
 
-    public void startMainView(MenuItem item){
+    public void startMainView(MenuItem item) {
         Intent intent = new Intent(GroupMenuActivity.this, FragmentActivity.class);
         startActivity(intent);
     }
@@ -141,85 +136,67 @@ public class GroupMenuActivity extends AppCompatActivity {
     }
 
     private void checkUser(Group group) {
-        if (group.getMembersId().contains(firebaseUser.getUid())) {
-            btnLeaveGroup.setVisibility(View.VISIBLE);
-            btnEditGroup.setVisibility(View.GONE);
-            btnInviteUsers.setVisibility(View.GONE);
-            btnRemoveGroup.setVisibility(View.GONE);
-            if (firebaseUser.getUid().equals(group.getCreatorUserId())) {
-                btnEditGroup.setVisibility(View.VISIBLE);
-                btnInviteUsers.setVisibility(View.VISIBLE);
-                btnRemoveGroup.setVisibility(View.VISIBLE);
-                btnLeaveGroup.setVisibility(View.GONE);
-            }
-        } else {
-            Toast.makeText(this, "You don't have permission to view this group",
-                    Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-        private void createLeavingDialog () {
-            AlertDialog dialog = new AlertDialog.Builder(this).create();
-            dialog.setTitle("Are you sure to leave this group?");
-            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    leaveGroup();
-                    Toast.makeText(GroupMenuActivity.this, "You left the group",
-                            Toast.LENGTH_SHORT).show();
-                    dialogInterface.dismiss();
-                }
-            });
-            dialog.show();
-        }
-
-        private void leaveGroup () {
-            DatabaseReference groupDatabaseReference = FirebaseDatabase.getInstance().getReference()
-                    .child("groups").child(groupId);
-            groupDatabaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Group group = snapshot.getValue(Group.class);
-                    group.getMembersId().remove(firebaseUser.getUid());
-                    groupDatabaseReference.child("membersId").setValue(group.getMembersId());
-                    DatabaseReference userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
-                    userDatabaseReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            User user = task.getResult().getValue(User.class);
-                            user.getUserGroupsId().remove(groupId);
-                            userDatabaseReference.setValue(user);
-                            Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            finish();
+        FirebaseDatabase.getInstance().getReference("groupUsers").child(groupId)
+                .child(firebaseUser.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().getValue() != null) {
+                                btnLeaveGroup.setVisibility(View.VISIBLE);
+                                btnEditGroup.setVisibility(View.GONE);
+                                btnInviteUsers.setVisibility(View.GONE);
+                                btnRemoveGroup.setVisibility(View.GONE);
+                                if (firebaseUser.getUid().equals(group.getCreatorUserId())) {
+                                    btnEditGroup.setVisibility(View.VISIBLE);
+                                    btnInviteUsers.setVisibility(View.VISIBLE);
+                                    btnRemoveGroup.setVisibility(View.VISIBLE);
+                                    btnLeaveGroup.setVisibility(View.GONE);
+                                }
+                            } else {
+                                activateDoNotPermissionAction();
+                            }
                         }
-                    });
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-
-        private void openShowMembersDialog () {
-            GroupDialogShowMembers groupDialogShowMembers = new GroupDialogShowMembers(groupId, getApplicationContext());
-            groupDialogShowMembers.show(getSupportFragmentManager(), "Group dialog Show Members");
-        }
-
-        public void openInvitationDialog () {
-            GroupMenuDialog groupMenuDialog = new GroupMenuDialog(groupId, getApplicationContext());
-            groupMenuDialog.show(getSupportFragmentManager(), "Group dialog");
-        }
+                    }
+                });
     }
+
+    private void activateDoNotPermissionAction() {
+        Toast.makeText(GroupMenuActivity.this,
+                "You don't have permission to view this group", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    private void createLeavingDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle("Are you sure to leave this group?");
+        dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(GroupMenuActivity.this, "You left the group",
+                        Toast.LENGTH_SHORT).show();
+                dialogInterface.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void openShowMembersDialog() {
+        GroupDialogShowMembers groupDialogShowMembers = new GroupDialogShowMembers(groupId, getApplicationContext());
+        groupDialogShowMembers.show(getSupportFragmentManager(), "Group dialog Show Members");
+    }
+
+    public void openInvitationDialog() {
+        GroupDialogInviteUser groupMenuDialog = new GroupDialogInviteUser(groupId, getApplicationContext());
+        groupMenuDialog.show(getSupportFragmentManager(), "Group dialog");
+    }
+}

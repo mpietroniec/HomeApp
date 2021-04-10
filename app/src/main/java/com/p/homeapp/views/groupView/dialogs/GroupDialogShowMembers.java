@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.userAdapters.UserAdapter;
+import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
 
@@ -36,6 +37,7 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> membersList;
+    private GroupController groupController;
 
     public GroupDialogShowMembers(String groupId, Context context) {
         this.groupId = groupId;
@@ -57,7 +59,7 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
         userAdapter = new UserAdapter(getActivity(), membersList);
         recyclerView.setAdapter(userAdapter);
 
-        getAllMembers(groupId);
+        showMembers(groupId);
 
         builder.setView(view).setTitle("All Members")
                 .setNeutralButton("Back", new DialogInterface.OnClickListener() {
@@ -67,6 +69,11 @@ public class GroupDialogShowMembers extends AppCompatDialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    private void showMembers(String groupId) {
+        groupController = new GroupController(membersList, getContext(), userAdapter);
+        groupController.getAllGroupMembers(groupId);
     }
 
     private void getAllMembers(String groupId) {

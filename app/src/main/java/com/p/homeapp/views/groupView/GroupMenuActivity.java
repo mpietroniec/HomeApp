@@ -184,7 +184,11 @@ public class GroupMenuActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(GroupMenuActivity.this, "You left the group",
                         Toast.LENGTH_SHORT).show();
+                groupController.facadeRemoveUserFromGroup(groupId, firebaseUser.getUid());
                 dialogInterface.dismiss();
+                Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         dialog.show();

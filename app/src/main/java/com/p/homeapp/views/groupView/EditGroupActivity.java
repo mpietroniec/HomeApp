@@ -52,6 +52,9 @@ public class EditGroupActivity extends AppCompatActivity {
         btnSaveGroup = findViewById(R.id.btn_save_group);
         rvMembersName = findViewById(R.id.rv_members_name);
 
+        Intent intent = getIntent();
+        groupId = intent.getStringExtra("groupId");
+
         membersList = new ArrayList<>();
         userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList, groupId);
         rvMembersName.setHasFixedSize(true);
@@ -59,10 +62,6 @@ public class EditGroupActivity extends AppCompatActivity {
         rvMembersName.setAdapter(userAdapterWithThrowAway);
 
         groupController = new GroupController(membersList, getApplicationContext(), userAdapterWithThrowAway);
-
-
-        Intent intent = getIntent();
-        groupId = intent.getStringExtra("groupId");
 
         getGroupData();
 
@@ -89,7 +88,7 @@ public class EditGroupActivity extends AppCompatActivity {
                         Group group = snapshot.getValue(Group.class);
                         eTxtGroupName.setText(group.getName());
                         eTxtGroupDescription.setText(group.getDescription());
-                        groupController.getAllGroupMembers(groupId);
+                        forceRefreshMembersList(groupId);
                     }
 
                     @Override
@@ -119,5 +118,20 @@ public class EditGroupActivity extends AppCompatActivity {
         Intent intent = new Intent(EditGroupActivity.this, GroupActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void forceRefreshMembersList(String groupId){
+        FirebaseDatabase.getInstance().getReference("groupUsers")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                groupController.getAllGroupMembers(groupId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

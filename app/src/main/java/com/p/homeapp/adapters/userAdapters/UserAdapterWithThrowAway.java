@@ -3,6 +3,7 @@ package com.p.homeapp.adapters.userAdapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
-import com.p.homeapp.entities.Group;
+import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.User;
+import com.p.homeapp.views.groupView.EditGroupActivity;
 
 import java.util.List;
 
@@ -31,6 +28,7 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
     private Context context;
     private List<User> mUsers;
     private String groupId;
+    private GroupController groupController;
 
     private FirebaseUser firebaseUser;
 
@@ -38,6 +36,7 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
         this.context = context;
         this.mUsers = mUsers;
         this.groupId = groupId;
+        groupController = new GroupController(context);
     }
 
     @NonNull
@@ -52,7 +51,7 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         User user = mUsers.get(position);
 
-        if(user.getId().equals(firebaseUser.getUid())){
+        if (user.getId().equals(firebaseUser.getUid())) {
             holder.txtUsername.setText(user.getLogin() + "(Ja)");
             holder.ivThrowUserAway.setVisibility(View.GONE);
         } else {
@@ -73,28 +72,13 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
                 dialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        removeFromGroupMembers(mUsers.get(position).getId());
+                        groupController.facadeRemoveUserFromGroup(groupId, user.getId());
                         Toast.makeText(context, "Member successfully removed", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+
                     }
                 });
                 dialog.show();
-            }
-        });
-    }
-
-    private void removeFromGroupMembers(String memberId) {
-        DatabaseReference groupReference = FirebaseDatabase.getInstance().getReference().child("groups")
-                .child(groupId);
-        groupReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Group group = snapshot.getValue(Group.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -104,7 +88,7 @@ public class UserAdapterWithThrowAway extends RecyclerView.Adapter<UserAdapterWi
         return mUsers.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtUsername;
         private ImageView ivThrowUserAway;

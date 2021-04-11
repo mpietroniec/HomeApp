@@ -21,7 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
@@ -75,29 +77,12 @@ public class GroupMenuActivity extends AppCompatActivity {
 
         btnAddTaskFromGroupMenu.setOnClickListener(v -> startAddTaskActivity());
 
-/*        btnRemoveGroup.setOnClickListener(view -> {
-            //TODO
+        btnRemoveGroup.setOnClickListener(view -> {
             startRemoveGroupDialog();
-        });*/
+        });
     }
 
-    private void startRemoveGroupDialog() {
-        AlertDialog removeDialog = new AlertDialog.Builder(this).create();
-        removeDialog.setTitle("Are you sure to remove this group?");
-        removeDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        removeDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        removeDialog.show();
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,6 +94,22 @@ public class GroupMenuActivity extends AppCompatActivity {
     public void startMainView(MenuItem item) {
         Intent intent = new Intent(GroupMenuActivity.this, FragmentActivity.class);
         startActivity(intent);
+    }
+
+    private void startGroupActivityView() {
+        FirebaseDatabase.getInstance().getReference().child("groupUsers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void startAddTaskActivity() {
@@ -169,6 +170,25 @@ public class GroupMenuActivity extends AppCompatActivity {
         finish();
     }
 
+    private void startRemoveGroupDialog() {
+        AlertDialog removeDialog = new AlertDialog.Builder(this).create();
+        removeDialog.setTitle("Are you sure to remove this group?");
+        removeDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        removeDialog.setButton(AlertDialog.BUTTON_POSITIVE, "YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                groupController.removeGroup(groupId);
+                dialogInterface.dismiss();
+                startGroupActivityView();
+            }
+        });
+        removeDialog.show();
+    }
 
     private void createLeavingDialog() {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
@@ -186,9 +206,7 @@ public class GroupMenuActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 groupController.facadeRemoveUserFromGroup(groupId, firebaseUser.getUid());
                 dialogInterface.dismiss();
-                Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
-                startActivity(intent);
-                finish();
+                startGroupActivityView();
             }
         });
         dialog.show();

@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.entities.Group;
@@ -39,7 +40,7 @@ public class GroupController {
         this.fUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
-    public void facadeRemoveUserFromGroup(String groupId, String userId){
+    public void facadeRemoveUserFromGroup(String groupId, String userId) {
         removeUserFromGroup(groupId, userId);
     }
 
@@ -58,6 +59,29 @@ public class GroupController {
     public void joinToGroup(String groupId, String userId) {
         addDataToGroupUsersTable(groupId, userId);
         addDataToUserGroupsTable(groupId, userId);
+    }
+
+    public void removeGroup(String groupId) {
+        removeAllUsersFromGroup(groupId);
+
+    }
+
+    private void removeAllUsersFromGroup(String groupId) {
+        DatabaseReference groupUsersGroupId = FirebaseDatabase.getInstance().getReference("groupUsers").child(groupId);
+        groupUsersGroupId.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    groupUsersGroupId.child(dataSnapshot.getKey()).setValue(false);
+                    removeGroupFromUserGroups(groupId, dataSnapshot.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void addDataToGroupTable(Group group, String userId) {
@@ -83,28 +107,28 @@ public class GroupController {
         String currentUserId = fUser.getUid();
         FirebaseDatabase.getInstance().getReference().child("userGroups").child(currentUserId).get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                    if((boolean)dataSnapshot.getValue() == true){
-                        String groupId = dataSnapshot.getKey();
-                        getGroup(groupId);
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                            if ((boolean) dataSnapshot.getValue() == true) {
+                                String groupId = dataSnapshot.getKey();
+                                getGroup(groupId);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
     }
 
     private void getGroup(String groupId) {
         FirebaseDatabase.getInstance().getReference().child("groups").child(groupId).get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Group group = task.getResult().getValue(Group.class);
-                objectsList.add(group);
-                adapter.notifyDataSetChanged();
-            }
-        });
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        Group group = task.getResult().getValue(Group.class);
+                        objectsList.add(group);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void addDataToGroupUsersTable(String groupId, String userId) {
@@ -123,7 +147,7 @@ public class GroupController {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 for (DataSnapshot snapshot : task.getResult().getChildren()) {
-                    if((boolean)snapshot.getValue() == true){
+                    if ((boolean) snapshot.getValue() == true) {
                         String userId = snapshot.getKey();
                         getUsersForMembersList(userId);
                     }
@@ -145,17 +169,17 @@ public class GroupController {
         });
     }
 
-    private void removeUserFromGroup(String groupId, String userId){
-        softDeleteUserFromGroupUsers(groupId, userId);
-        softDeleteUserFromUserGroups(groupId, userId);
+    private void removeUserFromGroup(String groupId, String userId) {
+        removeUserFromGroupUsers(groupId, userId);
+        removeGroupFromUserGroups(groupId, userId);
     }
 
-    private void softDeleteUserFromUserGroups(String groupId, String userId) {
+    private void removeGroupFromUserGroups(String groupId, String userId) {
         FirebaseDatabase.getInstance().getReference("userGroups").child(userId).child(groupId)
                 .setValue(false);
     }
 
-    private void softDeleteUserFromGroupUsers(String groupId, String userId) {
+    private void removeUserFromGroupUsers(String groupId, String userId) {
         FirebaseDatabase.getInstance().getReference("groupUsers").child(groupId).child(userId)
                 .setValue(false);
     }

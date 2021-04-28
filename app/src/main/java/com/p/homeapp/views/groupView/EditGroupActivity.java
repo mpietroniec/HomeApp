@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.p.homeapp.R;
 import com.p.homeapp.adapters.userAdapters.UserAdapterWithThrowAway;
+import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.views.mainView.FragmentActivity;
@@ -37,6 +38,7 @@ public class EditGroupActivity extends AppCompatActivity {
     private RecyclerView rvMembersName;
     private UserAdapterWithThrowAway userAdapterWithThrowAway;
     private List<User> membersList;
+    private GroupController groupController;
 
     private String groupId;
 
@@ -50,14 +52,16 @@ public class EditGroupActivity extends AppCompatActivity {
         btnSaveGroup = findViewById(R.id.btn_save_group);
         rvMembersName = findViewById(R.id.rv_members_name);
 
+        Intent intent = getIntent();
+        groupId = intent.getStringExtra("groupId");
+
         membersList = new ArrayList<>();
         userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList, groupId);
         rvMembersName.setHasFixedSize(true);
         rvMembersName.setLayoutManager(new LinearLayoutManager(this));
         rvMembersName.setAdapter(userAdapterWithThrowAway);
 
-        Intent intent = getIntent();
-        groupId = intent.getStringExtra("groupId");
+        groupController = new GroupController(membersList, getApplicationContext(), userAdapterWithThrowAway);
 
         getGroupData();
 
@@ -71,7 +75,7 @@ public class EditGroupActivity extends AppCompatActivity {
         return true;
     }
 
-    public void startMainView(MenuItem item){
+    public void startMainView(MenuItem item) {
         Intent intent = new Intent(EditGroupActivity.this, FragmentActivity.class);
         startActivity(intent);
     }
@@ -81,32 +85,15 @@ public class EditGroupActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        membersList.clear();
                         Group group = snapshot.getValue(Group.class);
                         eTxtGroupName.setText(group.getName());
                         eTxtGroupDescription.setText(group.getDescription());
-                        getMembers(group);
+                        forceRefreshMembersList(groupId);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-    }
-
-    private void getMembers(Group group) {
-        FirebaseDatabase.getInstance().getReference().child("users").get()
-                .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
-                            User user = dataSnapshot.getValue(User.class);
-/*                            if (group.getMembersId().contains(user.getId())) {
-                                membersList.add(user);
-                            }*/
-                        }
-                        userAdapterWithThrowAway.notifyDataSetChanged();
                     }
                 });
     }
@@ -122,6 +109,28 @@ public class EditGroupActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(EditGroupActivity.this, "Group successfully updated",
                         Toast.LENGTH_SHORT).show();
+                changeLayoutToGroupActivity();
+            }
+        });
+    }
+
+    private void changeLayoutToGroupActivity() {
+        Intent intent = new Intent(EditGroupActivity.this, GroupActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void forceRefreshMembersList(String groupId){
+        FirebaseDatabase.getInstance().getReference("groupUsers")
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                groupController.getAllGroupMembers(groupId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

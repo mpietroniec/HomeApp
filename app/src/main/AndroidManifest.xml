@@ -44,6 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.groupView.GroupActivity"
+
             android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.mainView.FragmentActivity"
@@ -58,6 +59,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

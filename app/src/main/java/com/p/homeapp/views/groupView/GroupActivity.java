@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.p.homeapp.controllers.GroupController;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.User;
 import com.p.homeapp.views.groupView.createGroup.CreateGroupActivity;
+import com.p.homeapp.views.mainView.FragmentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class GroupActivity extends AppCompatActivity {
 
         mGroups = new ArrayList<>();
         rvGroup = findViewById(R.id.rv_group);
-        groupAdapter = new GroupAdapter(getBaseContext(), mGroups);
+        groupAdapter = new GroupAdapter(getBaseContext(), mGroups, this);
         groupController = new GroupController(mGroups, getApplicationContext(), groupAdapter);
 
         floatingBtnAddGroup = findViewById(R.id.btn_add_group);
@@ -82,6 +84,14 @@ public class GroupActivity extends AppCompatActivity {
         floatingBtnCreateGroup.setOnClickListener(view -> {
             startCreatingGroup();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(GroupActivity.this, FragmentActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void startCreatingGroup() {

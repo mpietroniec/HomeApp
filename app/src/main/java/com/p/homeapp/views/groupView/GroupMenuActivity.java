@@ -116,12 +116,14 @@ public class GroupMenuActivity extends AppCompatActivity {
         Intent intentAddTask = new Intent(GroupMenuActivity.this, AddTaskActivity.class);
         intentAddTask.putExtra("groupId", groupId);
         startActivity(intentAddTask);
+        finish();
     }
 
     private void startEditGroupActivity() {
         Intent intentEditGroup = new Intent(GroupMenuActivity.this, EditGroupActivity.class);
         intentEditGroup.putExtra("groupId", groupId);
         startActivity(intentEditGroup);
+        finish();
     }
 
     private void getGroupData() {

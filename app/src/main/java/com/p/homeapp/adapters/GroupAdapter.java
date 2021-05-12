@@ -69,7 +69,6 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return mGroups.size();
     }
 
-
     public class GroupViewHolder extends RecyclerView.ViewHolder {
 
         private TextView groupName, groupDescription;

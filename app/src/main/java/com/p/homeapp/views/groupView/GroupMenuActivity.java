@@ -83,7 +83,6 @@ public class GroupMenuActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -190,6 +189,14 @@ public class GroupMenuActivity extends AppCompatActivity {
             }
         });
         removeDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(GroupMenuActivity.this, GroupActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void createLeavingDialog() {

@@ -116,10 +116,17 @@ public class EditGroupActivity extends AppCompatActivity {
 
     private void changeLayoutToGroupActivity() {
         Intent intent = new Intent(EditGroupActivity.this, GroupActivity.class);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(EditGroupActivity.this, GroupMenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void forceRefreshMembersList(String groupId) {
         FirebaseDatabase.getInstance().getReference("groupUsers")

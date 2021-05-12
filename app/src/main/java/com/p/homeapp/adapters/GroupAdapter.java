@@ -1,5 +1,6 @@
 package com.p.homeapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -26,9 +27,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     private FirebaseUser firebaseUser;
 
-    public GroupAdapter(Context context, List<Group> mGroups) {
+    private Activity activity;
+
+    public GroupAdapter(Context context, List<Group> mGroups, Activity activity) {
         this.context = context;
         this.mGroups = mGroups;
+        this.activity = activity;
     }
 
     @NonNull
@@ -54,8 +58,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                 intent.putExtra("groupId", group.getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 context.startActivity(intent);
+                activity.finish();
             }
         });
+
     }
 
     @Override

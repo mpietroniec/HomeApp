@@ -57,9 +57,8 @@ public class EditGroupActivity extends AppCompatActivity {
 
         membersList = new ArrayList<>();
         userAdapterWithThrowAway = new UserAdapterWithThrowAway(this, membersList, groupId);
-        rvMembersName.setHasFixedSize(true);
-        rvMembersName.setLayoutManager(new LinearLayoutManager(this));
-        rvMembersName.setAdapter(userAdapterWithThrowAway);
+
+        initRecyclerView();
 
         groupController = new GroupController(membersList, getApplicationContext(), userAdapterWithThrowAway);
 
@@ -110,28 +109,43 @@ public class EditGroupActivity extends AppCompatActivity {
                 Toast.makeText(EditGroupActivity.this, "Group successfully updated",
                         Toast.LENGTH_SHORT).show();
                 changeLayoutToGroupActivity();
+
             }
         });
     }
 
     private void changeLayoutToGroupActivity() {
         Intent intent = new Intent(EditGroupActivity.this, GroupActivity.class);
+        startActivityForResult(intent, 1);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(EditGroupActivity.this, GroupMenuActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void forceRefreshMembersList(String groupId){
+    private void forceRefreshMembersList(String groupId) {
         FirebaseDatabase.getInstance().getReference("groupUsers")
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                groupController.getAllGroupMembers(groupId);
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        groupController.getAllGroupMembers(groupId);
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                    }
+                });
+    }
+
+    private void initRecyclerView() {
+        rvMembersName.setHasFixedSize(true);
+        rvMembersName.setLayoutManager(new LinearLayoutManager(this));
+        rvMembersName.setAdapter(userAdapterWithThrowAway);
     }
 }

@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.groupView.dialogs.GroupDialogAddUserToTask" />
         <activity
             android:name=".views.moneyBalance.MoneyBalanceActivity"
-            android:parentActivityName=".views.mainView.FragmentActivity"/>
+            android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.archives.TaskArchivesActivity"
             android:parentActivityName=".views.mainView.FragmentActivity" />
@@ -44,7 +45,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.groupView.GroupActivity"
-
             android:parentActivityName=".views.mainView.FragmentActivity" />
         <activity
             android:name=".views.mainView.FragmentActivity"
@@ -59,7 +59,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

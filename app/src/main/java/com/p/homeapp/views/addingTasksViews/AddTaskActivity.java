@@ -32,6 +32,7 @@ import com.p.homeapp.androidElements.GroupSpinner;
 import com.p.homeapp.entities.Group;
 import com.p.homeapp.entities.Task;
 import com.p.homeapp.helpers.DateParser;
+import com.p.homeapp.views.groupView.dialogs.GroupDialogAddUserToTask;
 import com.p.homeapp.views.mainView.FragmentActivity;
 
 import java.text.SimpleDateFormat;
@@ -134,6 +135,11 @@ public class AddTaskActivity extends AppCompatActivity implements DatePickerDial
 
         btnSaveTask.setOnClickListener(v -> {
             getTaskData();
+        });
+
+        btnAddTargetUsers.setOnClickListener(v -> {
+            GroupDialogAddUserToTask groupDialogAddUserToTask = new GroupDialogAddUserToTask(groupId, getApplicationContext());
+            groupDialogAddUserToTask.show(getSupportFragmentManager(), "Group dialog add user to task");
         });
     }
 
